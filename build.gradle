@@ -1,29 +1,19 @@
-buildscript {
-    ext {
-        springBootVersion = '2.2.0.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-subprojects {
+plugins {
     id 'java'
     id 'idea'
-
-    group 'dev.anyjava'
-    version '1.0-SNAPSHOT'
-
-    sourceCompatibility = 1.11
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-    }
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
+group 'dev.anyjava'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
