@@ -16,3 +16,7 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+
+### jevn
+.java-version
