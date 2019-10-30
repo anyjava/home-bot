@@ -6,9 +6,13 @@ import org.telegram.telegrambots.ApiContextInitializer;
 
 @SpringBootApplication
 public class HomeBotApplication {
-    public static void main(String[] args) {
+
+    static {
         //Add this line to initialize bots context
         ApiContextInitializer.init();
+    }
+
+    public static void main(String[] args) {
         SpringApplication.run(HomeBotApplication.class, args);
     }
 }
