@@ -7,7 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 //Standard Spring component annotation
 @Slf4j
-@Component
+//@Component
 public class YourBotName extends TelegramLongPollingBot {
 
   @Override

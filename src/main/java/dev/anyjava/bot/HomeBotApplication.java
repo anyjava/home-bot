@@ -9,7 +9,7 @@ public class HomeBotApplication {
 
     static {
         //Add this line to initialize bots context
-        ApiContextInitializer.init();
+//        ApiContextInitializer.init();
     }
 
     public static void main(String[] args) {

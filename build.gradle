@@ -20,6 +20,9 @@ dependencies {
 
     // bot api
     compile "org.telegram:telegrambots-spring-boot-starter:4.1.2"
+    // https://mvnrepository.com/artifact/com.linecorp.bot/line-bot-spring-boot
+    compile "com.linecorp.bot:line-bot-spring-boot:3.1.0"
+
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 

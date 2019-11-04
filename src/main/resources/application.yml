@@ -1,0 +1,8 @@
+
+line:
+  bot:
+    channelToken:
+    channelSecret:
+    connectTimeout: 3000
+    readTimeout: 3000
+    writeTimeout: 300
