@@ -23,8 +23,9 @@ public class EchoApplication {
     }
 
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) throws Exception {
+    public TextMessage handleTextMessageEvent(MessageEvent<TextMessageContent> event) {
         log.info("event: {}", event);
-        return new TextMessage(event.getMessage().getText());
+//        return TextMessage.builder().build();
+        return null; // no reply
     }
 }

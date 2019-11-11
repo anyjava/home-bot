@@ -6,3 +6,7 @@ line:
     connectTimeout: 3000
     readTimeout: 3000
     writeTimeout: 300
+
+home:
+  bot:
+    downloadPath: ${downloadPath}

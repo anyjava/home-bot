@@ -1,18 +1,27 @@
 package dev.anyjava.bot;
 
+import dev.anyjava.bot.torrent.FolderWatchService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.telegram.telegrambots.ApiContextInitializer;
 
+@Slf4j
+@RequiredArgsConstructor
 @SpringBootApplication
-public class HomeBotApplication {
+public class HomeBotApplication implements CommandLineRunner {
 
-    static {
-        //Add this line to initialize bots context
-//        ApiContextInitializer.init();
-    }
+    private final FolderWatchService folderWatchService;
 
     public static void main(String[] args) {
         SpringApplication.run(HomeBotApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) {
+        log.info("STARTED FOLDER WATCH!!");
+        folderWatchService.watch();
+        log.info("END FOLDER WATCH!!");
     }
 }
