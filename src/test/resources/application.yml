@@ -1,5 +1,5 @@
 
 line:
   bot:
-    channelToken: 1
-    channelSecret: 2
+    channelToken: ${line.channelToken}
+    channelSecret: ${line.channelSecret}
