@@ -1,3 +1,16 @@
+# https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 100
+        loggerLevel: FULL  # 해당 feign interface 가 있는 package 의 log level 이 꼭 DEBUG 여야 함.
+      httpbin: # @FeignClient 에서 name 값, 전역으로 설정하려면 default
+        connectTimeout: 5000
+        readTimeout: 100
+        loggerLevel: FULL  # 해당 feign interface 가 있는 package 의 log level 이 꼭 DEBUG 여야 함.
 
 line:
   bot:
