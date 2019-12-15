@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Setter
 @ToString
 public class Stock {
+
     private String code;
     private String name;
     private BigDecimal currentPrice;

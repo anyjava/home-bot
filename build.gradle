@@ -40,10 +40,11 @@ dependencies {
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     runtime("org.springframework.boot:spring-boot-properties-migrator")
 
+    compile 'org.springframework.boot:spring-boot-configuration-processor'
     compileOnly 'org.projectlombok:lombok:1.18.10'
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
-
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
