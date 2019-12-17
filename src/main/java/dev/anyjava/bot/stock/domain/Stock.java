@@ -1,4 +1,4 @@
-package dev.anyjava.bot.infra.stock;
+package dev.anyjava.bot.stock.domain;
 
 import lombok.Builder;
 import lombok.Getter;

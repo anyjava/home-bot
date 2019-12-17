@@ -23,7 +23,7 @@ public class HomeBotLineMessageHandlerTest {
 
     @BeforeEach
     public void setUpObject() {
-        messageHandler = new HomeBotLineMessageHandler("");
+        messageHandler = new HomeBotLineMessageHandler("", stockQueryService, stockMessageBuilder);
     }
 
     @DisplayName(". 로 시작하면 파싱대상의 메시지임")

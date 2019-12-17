@@ -1,6 +1,6 @@
 package dev.anyjava.bot.stock.service;
 
-import dev.anyjava.bot.infra.stock.Stock;
+import dev.anyjava.bot.stock.domain.Stock;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

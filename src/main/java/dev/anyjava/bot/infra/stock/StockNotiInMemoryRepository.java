@@ -13,7 +13,9 @@ public class StockNotiInMemoryRepository implements StockNotiRepository {
     private static final Set<StockNoti> IN_MEMORY_SET;
 
     static {
-        IN_MEMORY_SET = Set.of(StockNoti.of("035720"));
+        IN_MEMORY_SET = Set.of(
+                StockNoti.of("035720", "카카오")
+        );
     }
 
     @Override

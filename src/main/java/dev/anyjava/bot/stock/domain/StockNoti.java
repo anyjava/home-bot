@@ -8,13 +8,16 @@ import lombok.ToString;
 @Setter
 @ToString
 public class StockNoti {
-    private String code;
 
-    private StockNoti(String code) {
+    private final String code;
+    private final String name;
+
+    private StockNoti(String code, String name) {
         this.code = code;
+        this.name = name;
     }
 
-    public static StockNoti of(String code) {
-        return new StockNoti(code);
+    public static StockNoti of(String code, String name) {
+        return new StockNoti(code, name);
     }
 }

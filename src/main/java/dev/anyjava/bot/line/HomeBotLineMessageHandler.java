@@ -6,6 +6,8 @@ import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
+import dev.anyjava.bot.stock.service.StockMessageBuilder;
+import dev.anyjava.bot.stock.service.StockQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -16,9 +18,15 @@ import javax.annotation.PostConstruct;
 public class HomeBotLineMessageHandler {
 
     private final String key;
+    private final StockQueryService stockQueryService;
+    private final StockMessageBuilder stockMessageBuilder;
 
-    public HomeBotLineMessageHandler(@Value("${line.bot.channelToken:}") String key) {
+    public HomeBotLineMessageHandler(@Value("${line.bot.channelToken:}") String key,
+                                     StockQueryService stockQueryService,
+                                     StockMessageBuilder stockMessageBuilder) {
         this.key = key;
+        this.stockQueryService = stockQueryService;
+        this.stockMessageBuilder = stockMessageBuilder;
     }
 
     @PostConstruct
@@ -30,9 +38,18 @@ public class HomeBotLineMessageHandler {
     public TextMessage handleTextMessageEvent(MessageEvent<MessageContent> event) {
         log.info("event: {}", event);
         if (accept(event)) {
-            return TextMessage.builder().text("OK").build();
+            return stockQueryService.findByName("카카오")
+                    .map(stockMessageBuilder::build)
+                    .map(this::buildTextMessage)
+                    .orElse(null);
         }
         return null; // no reply
+    }
+
+    private TextMessage buildTextMessage(String message) {
+        return TextMessage.builder()
+                .text(message)
+                .build();
     }
 
     private boolean accept(MessageEvent<MessageContent> event) {

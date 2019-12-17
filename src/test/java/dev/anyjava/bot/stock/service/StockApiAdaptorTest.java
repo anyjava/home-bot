@@ -1,6 +1,6 @@
 package dev.anyjava.bot.stock.service;
 
-import dev.anyjava.bot.infra.stock.Stock;
+import dev.anyjava.bot.stock.domain.Stock;
 import dev.anyjava.bot.support.TestSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
