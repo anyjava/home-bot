@@ -18,7 +18,7 @@ class StockApiAdaptorTest extends TestSupport {
 
     @Test
     public void testFindByCode() {
-        Stock stock = stockApiAdaptor.findByCode("035420");
+        Stock stock = stockApiAdaptor.findByCode("035720");
 
         assertThat(stock.getName()).isEqualTo("NAVER보통주");
         assertThat(stock.getCurrentPrice()).isGreaterThan(BigDecimal.ZERO);
