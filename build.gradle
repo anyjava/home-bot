@@ -38,15 +38,22 @@ dependencies {
     compile "com.linecorp.bot:line-bot-spring-boot:3.1.0"
 
     compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
-    runtime("org.springframework.boot:spring-boot-properties-migrator")
+    runtime("org.springframework.boot:spring-boot-properties-migrator") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
 
+    compile('io.jsonwebtoken:jjwt:0.9.1') {
+        exclude group: 'org.json', module: 'json'
+    }
     compile 'org.springframework.boot:spring-boot-configuration-processor'
     compileOnly 'org.projectlombok:lombok:1.18.10'
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
 }
 
 task unpack(type: Copy) {
