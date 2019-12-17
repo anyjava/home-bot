@@ -23,7 +23,7 @@ public class StockNotiWorker {
     private final StockMessageBuilder stockMessageBuilder;
     private final LineNotiService lineNotiService;
 
-    @Scheduled(cron = "0 10 9 * * *", zone = "JST")
+    @Scheduled(cron = "0 10 9 * * MON-FRI", zone = "JST")
     public void run() {
         try {
             stockNotiRepository.findAll().stream()
