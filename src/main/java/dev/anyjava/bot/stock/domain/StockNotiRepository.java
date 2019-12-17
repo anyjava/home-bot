@@ -1,4 +1,4 @@
-package dev.anyjava.bot.domain.stock;
+package dev.anyjava.bot.stock.domain;
 
 import java.util.List;
 

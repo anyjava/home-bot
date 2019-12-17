@@ -1,5 +1,7 @@
-package dev.anyjava.bot.infra.stock;
+package dev.anyjava.bot.stock.service;
 
+import dev.anyjava.bot.infra.stock.Stock;
+import dev.anyjava.bot.infra.stock.StockClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package dev.anyjava.bot.domain.stock;
+package dev.anyjava.bot.stock.domain;
 
 import lombok.Getter;
 import lombok.Setter;

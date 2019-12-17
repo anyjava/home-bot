@@ -1,7 +1,7 @@
 package dev.anyjava.bot.infra.stock;
 
-import dev.anyjava.bot.domain.stock.StockNoti;
-import dev.anyjava.bot.domain.stock.StockNotiRepository;
+import dev.anyjava.bot.stock.domain.StockNoti;
+import dev.anyjava.bot.stock.domain.StockNotiRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
