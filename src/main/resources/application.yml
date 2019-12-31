@@ -1,5 +1,15 @@
-# https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
 
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+# https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
 feign:
   client:
     config:
@@ -23,3 +33,9 @@ line:
 home:
   bot:
     downloadPath: ${downloadPath}
+
+---
+spring:
+  profiles: production
+  datasource:
+    url: jdbc:h2:file:/db/h2db_prod;AUTO_SERVER=true
