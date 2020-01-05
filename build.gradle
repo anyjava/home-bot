@@ -8,8 +8,8 @@ plugins {
 
 group 'dev.anyjava'
 version '1.0-SNAPSHOT'
-sourceCompatibility = '1.11'
-targetCompatibility = '1.11'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
 
 ext {
     // https://spring.io/blog/2019/11/12/spring-cloud-hoxton-rc2-released
@@ -52,6 +52,13 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
+
+    // for google spreadsheet API
+    // bug 때문에 1.30.3 을 써야함. -> https://github.com/googleapis/google-oauth-java-client/issues/397
+    implementation 'com.google.api-client:google-api-client:1.30.3'
+    implementation 'com.google.oauth-client:google-oauth-client-jetty:1.30.3'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev581-1.25.0'
+
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
