@@ -18,7 +18,7 @@ public class LineMessageBroker {
 
     private final LineMessagingClient lineMessagingClient;
 
-    @Value("${to}")
+    @Value("${line.groups.family}")
     private String to;
 
     public void pushMessage(String message) {

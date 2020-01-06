@@ -28,6 +28,8 @@ line:
     connectTimeout: 3000
     readTimeout: 3000
     writeTimeout: 300
+  groups:
+    family: ${to}
 
 home:
   bot:
@@ -40,6 +42,20 @@ google:
   sheets:
     orderList: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
 
+---
+spring:
+  profiles: local
+
+line:
+  bot:
+    channelToken: dummy
+    channelSecret: dummy
+  groups:
+    family: dummyId
+
+home:
+  bot:
+    downloadPath: /var/tmp
 
 ---
 spring:

@@ -3,6 +3,7 @@ package dev.anyjava.bot.line;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.spring.boot.annotation.EventMapping;
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler;
@@ -10,10 +11,12 @@ import dev.anyjava.bot.stock.service.StockMessageBuilder;
 import dev.anyjava.bot.stock.service.StockQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 
 import javax.annotation.PostConstruct;
 
 @Slf4j
+@Profile({"!local"})
 @LineMessageHandler
 public class HomeBotLineMessageHandler {
 
@@ -35,9 +38,10 @@ public class HomeBotLineMessageHandler {
     }
 
     @EventMapping
-    public TextMessage handleTextMessageEvent(MessageEvent<MessageContent> event) {
+    public Message handleTextMessageEvent(MessageEvent<MessageContent> event) {
         log.info("event: {}", event);
         if (accept(event)) {
+            // TODO: 07/01/2020 중복제거
             return stockQueryService.findByName("카카오")
                     .map(stockMessageBuilder::build)
                     .map(this::buildTextMessage)
