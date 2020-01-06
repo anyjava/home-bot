@@ -13,12 +13,14 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.SheetsScopes;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
@@ -31,17 +33,22 @@ import java.util.List;
 @Configuration
 public class GoogleSpreadSheetConfig {
 
-    private static final String APPLICATION_NAME = "Google Sheets API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "/var/tmp/tokens";
 
     /**
      * Global instance of the scopes required by this quickstart.
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
     private static final List<String> SCOPES = Collections.singletonList(SheetsScopes.SPREADSHEETS_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
+    @Value("${google.appName}")
+    private String applicationName;
+
+    @Value("${google.credentialsFilePath}")
+    private String credentialsFilePath;
+
+    @Value("${google.tokenPath}")
+    private String tokensDirectoryPath;
 
     /**
      * Creates an authorized Credential object.
@@ -50,19 +57,21 @@ public class GoogleSpreadSheetConfig {
      * @throws IOException If the credentials.json file cannot be found.
      */
     @Bean
-    public Credential credentials() throws IOException, GeneralSecurityException {
+    public Credential credentials(ResourceLoader resourceLoader) throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         // Load client secrets.
-        InputStream in = GoogleSpreadSheetConfig.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
-        if (in == null) {
-            throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
+        Resource resource = resourceLoader.getResource(credentialsFilePath);
+        if (!resource.exists()) {
+            throw new FileNotFoundException("Resource not found: " + credentialsFilePath);
         }
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(resource.getInputStream()));
+
 
         // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(tokensDirectoryPath)))
                 .setAccessType("offline")
                 .build();
         LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
@@ -70,10 +79,10 @@ public class GoogleSpreadSheetConfig {
     }
 
     @Bean
-    public Sheets sheetService() throws GeneralSecurityException, IOException {
+    public Sheets sheetService(ResourceLoader resourceLoader) throws GeneralSecurityException, IOException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials())
-                .setApplicationName(APPLICATION_NAME)
+        return new Sheets.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials(resourceLoader))
+                .setApplicationName(applicationName)
                 .build();
     }
 }
