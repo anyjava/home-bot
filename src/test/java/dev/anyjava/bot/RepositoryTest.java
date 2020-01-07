@@ -34,4 +34,5 @@ class Bar {
     private String name;
 }
 
-interface BarRepository extends JpaRepository<Bar, Long> {}
+interface BarRepository extends JpaRepository<Bar, Long> {
+}

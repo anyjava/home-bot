@@ -1,5 +1,6 @@
 package dev.anyjava.bot.web.controller;
 
+import dev.anyjava.bot.order.repository.OrderRepository;
 import dev.anyjava.bot.stock.service.StockMessageBuilder;
 import dev.anyjava.bot.stock.service.StockQueryService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ public class LineWebHookMockingController {
 
     private final StockQueryService stockQueryService;
     private final StockMessageBuilder stockMessageBuilder;
+    private final OrderRepository orderRepository;
 
     @GetMapping("/line/message")
     public String handleMessage(@RequestParam String type, @RequestParam(required = false) String message) {
@@ -24,5 +26,10 @@ public class LineWebHookMockingController {
         return stockQueryService.findByName("카카오")
                 .map(stockMessageBuilder::build)
                 .orElse("");
+    }
+
+    @GetMapping("/api/orders/by-phone-number")
+    public String getOrderList(@RequestParam String phoneNumber) {
+        return orderRepository.findByPhoeNumber(phoneNumber).get(0).toString();
     }
 }
