@@ -4,7 +4,7 @@ import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.UserSource;
-import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.Message;
 import dev.anyjava.bot.stock.domain.Stock;
 import dev.anyjava.bot.stock.service.StockMessageBuilder;
 import dev.anyjava.bot.stock.service.StockQueryService;
@@ -46,7 +46,7 @@ public class HomeBotLineMessageHandlerTest {
         MessageContent message = new TextMessageContent("", textValue);
         MessageEvent<MessageContent> mockMessage = new MessageEvent("", new UserSource(""), message, Instant.MAX);
 
-        TextMessage textMessage = messageHandler.handleTextMessageEvent(mockMessage);
+        Message textMessage = messageHandler.handleTextMessageEvent(mockMessage);
 
         assertThat(textMessage).isNotNull();
     }

@@ -36,11 +36,9 @@ home:
     downloadPath: ${downloadPath}
 
 google:
-  tokenPath: /var/tmp/tokens
-  credentialsFilePath: "classpath:credentials.json"
-  appName: "Google Sheets OrderList"
+  apiKey: apiKey
   sheets:
-    orderList: 1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms
+    orderList: sheetsId
 
 ---
 spring:

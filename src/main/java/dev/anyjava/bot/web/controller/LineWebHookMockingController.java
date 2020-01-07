@@ -30,6 +30,6 @@ public class LineWebHookMockingController {
 
     @GetMapping("/api/orders/by-phone-number")
     public String getOrderList(@RequestParam String phoneNumber) {
-        return orderRepository.findByPhoeNumber(phoneNumber).get(0).toString();
+        return orderRepository.findByPhoneNumber(phoneNumber).get(0).toString();
     }
 }

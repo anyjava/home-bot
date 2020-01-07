@@ -1,13 +1,11 @@
 package dev.anyjava.bot.order.repository;
 
-import com.google.api.client.util.Lists;
-import com.google.api.services.sheets.v4.Sheets;
-import com.google.api.services.sheets.v4.model.ValueRange;
+import dev.anyjava.bot.infra.order.OrderSheetClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,31 +14,21 @@ import java.util.stream.Collectors;
 @Component
 public class OrderRepository {
 
-    private static final String SPREADSHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-    private static final String RANGE = "Class Data!A2:E";
+    private static final String RANGE = "A2:R999";
+    private final OrderSheetClient orderSheetClient;
 
-    private final Sheets sheets;
+    @Value("${google.sheets.orderList}")
+    private String spreadsheetId;
 
-    public List<OrderForm> findByPhoeNumber(String phoneNumber) {
-        List<List<Object>> values = getValueRange();
-        if (values == null || values.isEmpty()) {
-            log.debug("No Data found");
-            return Lists.newArrayList();
-        } else {
-            return values.stream()
-                    .map(v -> new OrderForm(0L, (String) v.get(0)))
-                    .collect(Collectors.toList());
-        }
-    }
+    @Value("${google.apiKey}")
+    private String apiKey;
 
-    private List<List<Object>> getValueRange() {
-        try {
-            return sheets.spreadsheets().values()
-                        .get(SPREADSHEET_ID, RANGE)
-                        .execute().getValues();
-        } catch (IOException e) {
-            log.error("failed to load sheets", e);
-        }
-        return Lists.newArrayList();
+    public List<Order> findByPhoneNumber(String phoneNumber) {
+
+        OrderForm sheets = orderSheetClient.getSheets(spreadsheetId, RANGE, apiKey);
+        return sheets.getValues().stream()
+                .filter(Order::acceptedOrder)
+                .collect(Collectors.toList());
+
     }
 }
