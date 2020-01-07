@@ -24,12 +24,20 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public static List<OrderItem> from(List row) {
+    public static List<OrderItem> from(List row, RowHeader rowHeader) {
         ArrayList<OrderItem> items = Lists.newArrayList();
-        add(items, (String) row.get(3), OrderItemType.NO_1);
-        add(items, (String) row.get(4), OrderItemType.NO_2);
-        add(items, (String) row.get(5), OrderItemType.NO_3);
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM1)), OrderItemType.NO_1);
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM2)), OrderItemType.NO_2);
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM3)), OrderItemType.NO_3);
         return items;
+    }
+
+    public String getItemName() {
+        return this.type.getName();
+    }
+
+    public BigDecimal getPrice() {
+        return this.type.getPrice().multiply(BigDecimal.valueOf(this.getQuantity()));
     }
 
     private static void add(ArrayList<OrderItem> items, String cnt1, OrderItemType type) {
@@ -44,6 +52,7 @@ public class OrderItem {
 }
 
 @RequiredArgsConstructor
+@Getter
 enum OrderItemType {
     NO_1("1. 절약형", BigDecimal.valueOf(20_000)),
     NO_2("2. 실속형", BigDecimal.valueOf(40_000)),

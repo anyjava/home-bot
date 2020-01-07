@@ -23,12 +23,12 @@ public class DeliveryDest {
         this.wantedDate = wantedDate;
     }
 
-    public static DeliveryDest from(List row) {
+    public static DeliveryDest from(List row, RowHeader rowHeader) {
         return DeliveryDest.builder()
-                .toName((String) row.get(7))
-                .phoneNumber((String) row.get(8))
-                .address((String) row.get(6))
-                .wantedDate((String) row.get(9))
+                .toName((String) row.get(rowHeader.getIndex(HeadName.TO_NAME)))
+                .phoneNumber((String) row.get(rowHeader.getIndex(HeadName.TO_PHONE_NUMBER)))
+                .address((String) row.get(rowHeader.getIndex(HeadName.TO_ADDRESS)))
+                .wantedDate((String) row.get(rowHeader.getIndex(HeadName.WANTED_DATE)))
                 .build();
     }
 }
