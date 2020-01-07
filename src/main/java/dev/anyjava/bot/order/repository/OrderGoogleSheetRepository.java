@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Component
 public class OrderGoogleSheetRepository implements OrderRepository {
 
-    private static final String RANGE = "A2:R999";
+    private static final String RANGE = "A1:R999";
     private final OrderSheetClient orderSheetClient;
 
     @Value("${google.sheets.orderList}")

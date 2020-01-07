@@ -44,6 +44,10 @@ google:
 spring:
   profiles: local
 
+logging:
+  level:
+    root: DEBUG
+
 line:
   bot:
     channelToken: dummy
