@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +23,13 @@ public class OrderController {
     }
 
     @GetMapping("/api/orders/by-order-name")
-    public List<Order> getOrderListByName(@RequestParam String orderName) {
-        return orderRepository.findByOrderNumber(orderName);
+    public OrderPagerResponse getOrderListByName(@RequestParam String orderName) {
+        List<Order> orders = orderRepository.findByOrderNumber(orderName);
+        return new OrderPagerResponse(
+                orderName,
+                orders.stream().map(Order::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add),
+                orders.stream().map(OrderPagerDTO::of).collect(Collectors.toList())
+                );
     }
 
     @GetMapping("/api/orders")
