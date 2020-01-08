@@ -3,6 +3,7 @@ package dev.anyjava.bot.order.repository;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.util.Pair;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public class OrderFormMapper {
 
     private static final int HEADER_OFFSET = 1;
@@ -25,13 +27,22 @@ public class OrderFormMapper {
 
     public static Order mapOrder(List row, RowHeader rowHeader) {
         return Order.builder()
-                .name((String) row.get(rowHeader.getIndex(HeadName.ORDER_NAME)))
-                .phoneNumber((String) row.get(rowHeader.getIndex(HeadName.ORDER_PHONE_NUMBER)))
+                .name(getStringValue(row, rowHeader, HeadName.ORDER_NAME))
+                .phoneNumber(getStringValue(row, rowHeader, HeadName.ORDER_PHONE_NUMBER))
                 .items(OrderItem.from(row, rowHeader))
                 .deliveryDest(DeliveryDest.from(row, rowHeader))
-                .memo((String) row.get(rowHeader.getIndex(HeadName.MEMO)))
-                .status(mapStatus((String) row.get(rowHeader.getIndex(HeadName.STATUS))))
+                .memo(getStringValue(row, rowHeader, HeadName.MEMO))
+                .status(mapStatus(getStringValue(row, rowHeader, HeadName.STATUS)))
                 .build();
+    }
+
+    private static String getStringValue(List row, RowHeader rowHeader, HeadName headName) {
+        try {
+            return (String) row.get(rowHeader.getIndex(headName));
+        } catch(IndexOutOfBoundsException e) {
+            log.error("failed to loadString type={}, index={}", headName, rowHeader.getIndex(headName));
+            return Strings.EMPTY;
+        }
     }
 
     private static RowHeader mapHeader(List list) {
