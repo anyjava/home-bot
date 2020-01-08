@@ -1,14 +1,13 @@
 package dev.anyjava.bot.order.repository;
 
-import com.google.common.collect.Maps;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import com.google.common.collect.Lists;
+import dev.anyjava.bot.order.domain.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.util.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,10 +28,37 @@ public class OrderFormMapper {
         return Order.builder()
                 .name(getStringValue(row, rowHeader, HeadName.ORDER_NAME))
                 .phoneNumber(getStringValue(row, rowHeader, HeadName.ORDER_PHONE_NUMBER))
-                .items(OrderItem.from(row, rowHeader))
-                .deliveryDest(DeliveryDest.from(row, rowHeader))
+                .items(mapOrderItems(row, rowHeader))
+                .deliveryDest(mapDeliveryDest(row, rowHeader))
                 .memo(getStringValue(row, rowHeader, HeadName.MEMO))
                 .status(mapStatus(getStringValue(row, rowHeader, HeadName.STATUS)))
+                .build();
+    }
+
+    private static List<OrderItem> mapOrderItems(List row, RowHeader rowHeader) {
+        List<OrderItem> items = Lists.newArrayList();
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM1)), OrderItemType.NO_1);
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM2)), OrderItemType.NO_2);
+        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM3)), OrderItemType.NO_3);
+        return items;
+    }
+
+    private static void add(List<OrderItem> items, String cnt1, OrderItemType type) {
+        if (Strings.isEmpty(cnt1)) return;
+        items.add(
+                OrderItem.builder()
+                        .type(type)
+                        .quantity(Integer.parseInt(cnt1))
+                        .build()
+        );
+    }
+
+    private static DeliveryDest mapDeliveryDest(List row, RowHeader rowHeader) {
+        return DeliveryDest.builder()
+                .toName((String) row.get(rowHeader.getIndex(HeadName.TO_NAME)))
+                .phoneNumber((String) row.get(rowHeader.getIndex(HeadName.TO_PHONE_NUMBER)))
+                .address((String) row.get(rowHeader.getIndex(HeadName.TO_ADDRESS)))
+                .wantedDate((String) row.get(rowHeader.getIndex(HeadName.WANTED_DATE)))
                 .build();
     }
 
@@ -65,34 +91,5 @@ public class OrderFormMapper {
     }
 }
 
-@RequiredArgsConstructor
-@Getter
-enum HeadName {
-    ID("id"),
-    ORDER_NAME("주문자명"),
-    ORDER_PHONE_NUMBER("주문자 연락처"),
-    ITEM1("1번 절약형 (20,000원)"),
-    ITEM2("2번 실속형 (40,000원)"),
-    ITEM3("3번 선물포장 (55,000원)"),
-    TO_NAME("택배 받는분 성함"),
-    TO_PHONE_NUMBER("택배 받는분 연락처"),
-    TO_ADDRESS("택배 받으실 곳"),
-    WANTED_DATE("택배 받고 싶은 날짜"),
-    MEMO("주문시 요청 사항"),
-    STATUS("상태")
-    ;
 
-    private final String name;
-}
 
-class RowHeader {
-    private Map<HeadName, Integer> header = Maps.newHashMap();
-
-    public void add(Pair<HeadName, Integer> pair) {
-        this.header.put(pair.getFirst(), pair.getSecond());
-    }
-
-    public int getIndex(HeadName headerName) {
-        return header.get(headerName);
-    }
-}

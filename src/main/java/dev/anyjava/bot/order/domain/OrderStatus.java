@@ -1,4 +1,4 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.order.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

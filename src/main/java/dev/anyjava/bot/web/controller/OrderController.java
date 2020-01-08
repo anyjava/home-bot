@@ -1,6 +1,6 @@
 package dev.anyjava.bot.web.controller;
 
-import dev.anyjava.bot.order.repository.Order;
+import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

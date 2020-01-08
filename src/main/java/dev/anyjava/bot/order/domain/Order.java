@@ -1,8 +1,7 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.order.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.apache.logging.log4j.util.Strings;
 

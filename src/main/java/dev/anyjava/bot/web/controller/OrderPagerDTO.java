@@ -1,8 +1,8 @@
 package dev.anyjava.bot.web.controller;
 
-import dev.anyjava.bot.order.repository.Order;
-import dev.anyjava.bot.order.repository.OrderItem;
-import dev.anyjava.bot.order.repository.OrderStatus;
+import dev.anyjava.bot.order.domain.Order;
+import dev.anyjava.bot.order.domain.OrderItem;
+import dev.anyjava.bot.order.domain.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

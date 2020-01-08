@@ -1,6 +1,6 @@
 package dev.anyjava.bot.infra.order;
 
-import dev.anyjava.bot.order.repository.OrderForm;
+import dev.anyjava.bot.order.domain.OrderForm;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

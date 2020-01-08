@@ -1,6 +1,7 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.order.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.anyjava.bot.order.repository.OrderFormMapper;
 import lombok.Getter;
 import lombok.ToString;
 
