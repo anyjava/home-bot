@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,13 @@ public class OrderGoogleSheetRepository implements OrderRepository {
     public List<Order> findByOrderNumber(String orderName) {
         return findAll().stream()
                 .filter(v -> v.getName().equals(orderName))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> findByDeliveryDate(LocalDate deliveryDate) {
+        return findAll().stream()
+                .filter(v -> v.getDeliveryDest().getDeliveryStartDate().equals(deliveryDate))
                 .collect(Collectors.toList());
     }
 }

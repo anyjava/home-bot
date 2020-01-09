@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.util.Pair;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,15 +30,16 @@ public class OrderFormMapper {
                 .items(mapOrderItems(row, rowHeader))
                 .deliveryDest(mapDeliveryDest(row, rowHeader))
                 .memo(getStringValue(row, rowHeader, HeadName.MEMO))
+                .memo2(getStringValue(row, rowHeader, HeadName.MEMO2))
                 .status(mapStatus(getStringValue(row, rowHeader, HeadName.STATUS)))
                 .build();
     }
 
     private static List<OrderItem> mapOrderItems(List row, RowHeader rowHeader) {
         List<OrderItem> items = Lists.newArrayList();
-        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM1)), OrderItemType.NO_1);
-        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM2)), OrderItemType.NO_2);
-        add(items, (String) row.get(rowHeader.getIndex(HeadName.ITEM3)), OrderItemType.NO_3);
+        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM1), OrderItemType.NO_1);
+        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM2), OrderItemType.NO_2);
+        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM3), OrderItemType.NO_3);
         return items;
     }
 
@@ -55,17 +55,27 @@ public class OrderFormMapper {
 
     private static DeliveryDest mapDeliveryDest(List row, RowHeader rowHeader) {
         return DeliveryDest.builder()
-                .toName((String) row.get(rowHeader.getIndex(HeadName.TO_NAME)))
-                .phoneNumber((String) row.get(rowHeader.getIndex(HeadName.TO_PHONE_NUMBER)))
-                .address((String) row.get(rowHeader.getIndex(HeadName.TO_ADDRESS)))
-                .wantedDate((String) row.get(rowHeader.getIndex(HeadName.WANTED_DATE)))
+                .toName(getStringValueOf(row, rowHeader, HeadName.TO_NAME))
+                .phoneNumber(getStringValueOf(row, rowHeader, HeadName.TO_PHONE_NUMBER))
+                .address(getStringValueOf(row, rowHeader, HeadName.TO_ADDRESS))
+                .wantedDate(getStringValueOf(row, rowHeader, HeadName.WANTED_DATE))
+                .deliveryStartDate(DateStringParser.parse(getStringValueOf(row, rowHeader, HeadName.DELIVERY_DATE)))
                 .build();
+    }
+
+    private static String getStringValueOf(List row, RowHeader rowHeader, HeadName headName) {
+        try {
+            return (String) row.get(rowHeader.getIndex(headName));
+        } catch (IndexOutOfBoundsException e) {
+            log.error("failed to loadString type={}, index={}", headName, rowHeader.getIndex(headName));
+            return Strings.EMPTY;
+        }
     }
 
     private static String getStringValue(List row, RowHeader rowHeader, HeadName headName) {
         try {
-            return (String) row.get(rowHeader.getIndex(headName));
-        } catch(IndexOutOfBoundsException e) {
+            return getStringValueOf(row, rowHeader, headName);
+        } catch (IndexOutOfBoundsException e) {
             log.error("failed to loadString type={}, index={}", headName, rowHeader.getIndex(headName));
             return Strings.EMPTY;
         }

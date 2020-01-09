@@ -16,7 +16,9 @@ enum HeadName {
     TO_PHONE_NUMBER("택배 받는분 연락처"),
     TO_ADDRESS("택배 받으실 곳"),
     WANTED_DATE("택배 받고 싶은 날짜"),
+    DELIVERY_DATE("택배발송일자"),
     MEMO("주문시 요청 사항"),
+    MEMO2("memo"),
     STATUS("상태")
     ;
 

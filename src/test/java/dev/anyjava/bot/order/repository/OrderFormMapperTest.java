@@ -52,7 +52,7 @@ class OrderFormMapperTest extends TestSupport {
             "      \"택배 받는분 연락처\",\n" +
             "      \"택배 받고 싶은 날짜\",\n" +
             "      \"주문시 요청 사항\",\n" +
-            "      \"id\",\n" +
+            "      \"택배발송일자\",\n" +
             "      \"상태\",\n" +
             "      \"할인\",\n" +
             "      \"\",\n" +
@@ -72,7 +72,7 @@ class OrderFormMapperTest extends TestSupport {
             "      \"아이유\",\n" +
             "      \"1/21\",\n" +
             "      \"memoooo\",\n" +
-            "      \"1\",\n" +
+            "      \"2020. 1. 8\",\n" +
             "      \"DEPOSIT_COMPLETE\",\n" +
             "      \"40000\",\n" +
             "      \"\",\n" +

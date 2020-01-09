@@ -17,6 +17,7 @@ public class Order {
     private List<OrderItem> items;
     private DeliveryDest deliveryDest;
     private String memo;
+    private String memo2;
     private OrderStatus status;
 
     @Builder
@@ -25,12 +26,13 @@ public class Order {
                  List<OrderItem> items,
                  DeliveryDest deliveryDest,
                  String memo,
-                 OrderStatus status) {
+                 String memo2, OrderStatus status) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.items = items;
         this.deliveryDest = deliveryDest;
         this.memo = memo;
+        this.memo2 = memo2;
         this.status = status;
     }
 
