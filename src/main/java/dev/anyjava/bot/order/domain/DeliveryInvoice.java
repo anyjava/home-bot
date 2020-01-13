@@ -15,4 +15,8 @@ public class DeliveryInvoice {
         this.company = company;
         this.invoiceNumber = invoiceNumber;
     }
+
+    public String getInvoiceNumberWithoutDash() {
+        return invoiceNumber.replace("-", "");
+    }
 }
