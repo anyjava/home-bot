@@ -3,6 +3,7 @@ package dev.anyjava.bot.web.controller;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import dev.anyjava.bot.web.dto.DeliveryInvoiceDTO;
+import dev.anyjava.bot.web.dto.DeliveryInvoiceSmsDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class OrderAdminController {
                 .deliveryDest(order.getDeliveryDest())
                 .memo(order.getMemo2())
                 .items(order.getItems())
+                .deliveryInvoiceSmsDTO(DeliveryInvoiceSmsDTO.from(order.getName(), order.getPhoneNumber(), order.getDeliveryInvoice(), order.getDeliveryDest(), order.getItems()))
                 .build();
     }
 }

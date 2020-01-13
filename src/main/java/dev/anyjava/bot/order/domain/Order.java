@@ -19,6 +19,7 @@ public class Order {
     private String memo;
     private String memo2;
     private OrderStatus status;
+    private DeliveryInvoice deliveryInvoice;
 
     @Builder
     public Order(String name,
@@ -26,7 +27,9 @@ public class Order {
                  List<OrderItem> items,
                  DeliveryDest deliveryDest,
                  String memo,
-                 String memo2, OrderStatus status) {
+                 String memo2,
+                 OrderStatus status,
+                 DeliveryInvoice deliveryInvoice) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.items = items;
@@ -34,6 +37,7 @@ public class Order {
         this.memo = memo;
         this.memo2 = memo2;
         this.status = status;
+        this.deliveryInvoice = deliveryInvoice;
     }
 
     public boolean acceptedOrder() {

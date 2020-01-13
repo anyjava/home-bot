@@ -21,4 +21,5 @@ public class DeliveryInvoiceDTO {
     private DeliveryDest deliveryDest;
     private List<OrderItem> items;
     private String memo;
+    private DeliveryInvoiceSmsDTO deliveryInvoiceSmsDTO;
 }

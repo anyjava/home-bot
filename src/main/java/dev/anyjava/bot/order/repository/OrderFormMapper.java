@@ -33,6 +33,12 @@ public class OrderFormMapper {
                 .memo(getStringValue(row, rowHeader, HeadName.MEMO))
                 .memo2(getStringValue(row, rowHeader, HeadName.MEMO2))
                 .status(mapStatus(getStringValue(row, rowHeader, HeadName.STATUS)))
+                .deliveryInvoice(
+                        DeliveryInvoice.builder()
+                                .company(getStringValue(row, rowHeader, HeadName.DELIVERY_COMPANY))
+                                .invoiceNumber(getStringValue(row, rowHeader, HeadName.DELIVERY_INVOICE_NUMBER))
+                                .build()
+                )
                 .build();
     }
 

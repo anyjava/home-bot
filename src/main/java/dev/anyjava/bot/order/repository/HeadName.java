@@ -19,7 +19,9 @@ enum HeadName {
     DELIVERY_DATE("택배발송일자"),
     MEMO("주문시 요청 사항"),
     MEMO2("memo"),
-    STATUS("상태")
+    STATUS("상태"),
+    DELIVERY_COMPANY("택배사"),
+    DELIVERY_INVOICE_NUMBER("송장번호")
     ;
 
     private final String name;

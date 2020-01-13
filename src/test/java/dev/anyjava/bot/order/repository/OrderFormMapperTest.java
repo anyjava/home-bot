@@ -31,6 +31,8 @@ class OrderFormMapperTest extends TestSupport {
                 () -> assertThat(aOrder.getPhoneNumber()).isEqualTo("010-1234-1234").as("연락처 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getMemo()).isEqualTo("memoooo").as("주문시 요청 사항 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getItems().size()).isEqualTo(1).as("item 갯수 검증"),
+                () -> assertThat(aOrder.getDeliveryInvoice().getCompany()).isEqualTo("로젠"),
+                () -> assertThat(aOrder.getDeliveryInvoice().getInvoiceNumber()).isEqualTo("729-2263-0001"),
                 () -> assertThat(aOrder.getTotalPrice()).isEqualTo(BigDecimal.valueOf(16_0000L))
         );
 
@@ -55,6 +57,9 @@ class OrderFormMapperTest extends TestSupport {
             "      \"택배발송일자\",\n" +
             "      \"상태\",\n" +
             "      \"할인\",\n" +
+            "      \"입금방법\",\n" +
+            "      \"택배사\",\n" +
+            "      \"송장번호\",\n" +
             "      \"\",\n" +
             "      \"\",\n" +
             "      \"\",\n" +
@@ -75,8 +80,9 @@ class OrderFormMapperTest extends TestSupport {
             "      \"2020. 1. 8\",\n" +
             "      \"DEPOSIT_COMPLETE\",\n" +
             "      \"40000\",\n" +
-            "      \"\",\n" +
-            "      \"\",\n" +
+            "      \"KAKAO\",\n" +
+            "      \"로젠\",\n" +
+            "      \"729-2263-0001\",\n" +
             "      \"\",\n" +
             "      \"1\"\n" +
             "    ],\n" +
