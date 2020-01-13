@@ -27,6 +27,7 @@ class OrderFormMapperTest extends TestSupport {
 
         assertAll(
                 () -> assertThat(orders.size()).isEqualTo(8),
+                () -> assertThat(aOrder.getRowId()).isEqualTo(1),
                 () -> assertThat(aOrder.getName()).isEqualTo("아이유1").as("주문자 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getPhoneNumber()).isEqualTo("010-1234-1234").as("연락처 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getMemo()).isEqualTo("memoooo").as("주문시 요청 사항 컬럼을 가져와야함"),
@@ -60,7 +61,7 @@ class OrderFormMapperTest extends TestSupport {
             "      \"입금방법\",\n" +
             "      \"택배사\",\n" +
             "      \"송장번호\",\n" +
-            "      \"\",\n" +
+            "      \"memo\",\n" +
             "      \"\",\n" +
             "      \"\",\n" +
             "      \"라인끝\\n\"\n" +
@@ -98,7 +99,7 @@ class OrderFormMapperTest extends TestSupport {
             "      \"010-1234-1234\",\n" +
             "      \"1/21\",\n" +
             "      \"\",\n" +
-            "      \"2\",\n" +
+            "      \"2020. 1. 3\",\n" +
             "      \"DEPOSIT_COMPLETE\",\n" +
             "      \"\",\n" +
             "      \"\",\n" +

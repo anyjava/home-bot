@@ -8,24 +8,23 @@ import org.springframework.data.util.Pair;
 
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
 public class OrderFormMapper {
 
-    private static final int HEADER_OFFSET = 1;
-
     public static List<Order> map(List<List> values) {
         RowHeader header = mapHeader(values.get(0));
-        return values.stream()
-                .skip(HEADER_OFFSET)
-                .map(row -> mapOrder(row, header))
-                .collect(Collectors.toList());
+        List<Order> result = Lists.newArrayList();
+        for (int i = 1; i < values.size(); ++i) {
+            result.add(mapOrder(i, values.get(i), header));
+        }
+        return result;
     }
 
-    public static Order mapOrder(List row, RowHeader rowHeader) {
+    public static Order mapOrder(long rowId, List row, RowHeader rowHeader) {
         return Order.builder()
+                .rowId(rowId)
                 .name(getStringValue(row, rowHeader, HeadName.ORDER_NAME))
                 .phoneNumber(getStringValue(row, rowHeader, HeadName.ORDER_PHONE_NUMBER))
                 .items(mapOrderItems(row, rowHeader))

@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 public class Order {
 
+    private Long rowId;
     private String name;
     private String phoneNumber;
     private List<OrderItem> items;
@@ -22,7 +23,8 @@ public class Order {
     private DeliveryInvoice deliveryInvoice;
 
     @Builder
-    public Order(String name,
+    public Order(Long rowId,
+                 String name,
                  String phoneNumber,
                  List<OrderItem> items,
                  DeliveryDest deliveryDest,
@@ -30,6 +32,7 @@ public class Order {
                  String memo2,
                  OrderStatus status,
                  DeliveryInvoice deliveryInvoice) {
+        this.rowId = rowId;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.items = items;
