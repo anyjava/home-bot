@@ -1,4 +1,4 @@
-package dev.anyjava.bot.web.controller;
+package dev.anyjava.bot.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import dev.anyjava.bot.order.domain.DeliveryDest;

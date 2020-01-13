@@ -1,4 +1,4 @@
-package dev.anyjava.bot.web.controller;
+package dev.anyjava.bot.web.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

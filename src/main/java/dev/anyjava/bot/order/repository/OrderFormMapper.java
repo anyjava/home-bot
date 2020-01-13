@@ -7,6 +7,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.util.Pair;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,11 +57,18 @@ public class OrderFormMapper {
     private static DeliveryDest mapDeliveryDest(List row, RowHeader rowHeader) {
         return DeliveryDest.builder()
                 .toName(getStringValueOf(row, rowHeader, HeadName.TO_NAME))
-                .phoneNumber(getStringValueOf(row, rowHeader, HeadName.TO_PHONE_NUMBER))
+                .phoneNumber(makePhoneNumber(getStringValueOf(row, rowHeader, HeadName.TO_PHONE_NUMBER).replaceAll("-", "")))
                 .address(getStringValueOf(row, rowHeader, HeadName.TO_ADDRESS))
                 .wantedDate(getStringValueOf(row, rowHeader, HeadName.WANTED_DATE))
                 .deliveryStartDate(DateStringParser.parse(getStringValueOf(row, rowHeader, HeadName.DELIVERY_DATE)))
                 .build();
+    }
+
+    public static String makePhoneNumber(String phoneNoStr) {
+        String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
+        if(!Pattern.matches(regEx, phoneNoStr)) return "";
+        return phoneNoStr.replaceAll(regEx, "$1-$2-$3");
+
     }
 
     private static String getStringValueOf(List row, RowHeader rowHeader, HeadName headName) {

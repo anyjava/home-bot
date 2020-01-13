@@ -1,4 +1,4 @@
-package dev.anyjava.bot.web.controller;
+package dev.anyjava.bot.web.dto;
 
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.domain.OrderItem;
