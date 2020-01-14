@@ -2,6 +2,7 @@ package dev.anyjava.bot.web.controller;
 
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
+import dev.anyjava.bot.order.service.DeliveryCheckService;
 import dev.anyjava.bot.web.dto.DeliveryInvoiceDTO;
 import dev.anyjava.bot.web.dto.DeliveryInvoiceSmsDTO;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,18 @@ import java.util.stream.Collectors;
 public class OrderAdminController {
 
     private final OrderRepository orderRepository;
+    private final DeliveryCheckService deliveryCheckService;
 
     @GetMapping("/orders/by-delivery-date")
     public List<DeliveryInvoiceDTO> getOrderListByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deliveryDate) {
         return orderRepository.findByDeliveryDate(deliveryDate).stream()
                 .map(this::buildDTO)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/deliveries/check")
+    public List<String> checkDelivery() {
+        return deliveryCheckService.exec();
     }
 
     private DeliveryInvoiceDTO buildDTO(Order order) {

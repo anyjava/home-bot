@@ -56,5 +56,9 @@ public class Order {
                 .map(OrderItem::getPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    public boolean isShipping() {
+        return this.getStatus() == OrderStatus.SHIPPING;
+    }
 }
 
