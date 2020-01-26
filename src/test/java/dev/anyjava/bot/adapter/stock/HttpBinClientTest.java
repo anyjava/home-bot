@@ -1,4 +1,4 @@
-package dev.anyjava.bot.infra.stock;
+package dev.anyjava.bot.adapter.stock;
 
 import dev.anyjava.bot.support.TestSupport;
 import feign.RetryableException;

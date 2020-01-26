@@ -1,7 +1,7 @@
 package dev.anyjava.bot.stock.service;
 
 import dev.anyjava.bot.stock.domain.Stock;
-import dev.anyjava.bot.infra.stock.StockClient;
+import dev.anyjava.bot.adapter.stock.StockClient;
 import dev.anyjava.bot.stock.domain.StockNoti;
 import dev.anyjava.bot.stock.domain.StockNotiRepository;
 import lombok.RequiredArgsConstructor;

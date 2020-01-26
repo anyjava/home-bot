@@ -1,5 +1,6 @@
 package dev.anyjava.bot.order.domain;
 
+import com.google.common.base.Preconditions;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -59,6 +60,11 @@ public class Order {
 
     public boolean isShipping() {
         return this.getStatus() == OrderStatus.SHIPPING;
+    }
+
+    public void doneShipping() {
+        Preconditions.checkState(status == OrderStatus.SHIPPING, "Shipping 상태의 주문만 완료시킬수 있습니다. rowId={}", rowId);
+        this.status = OrderStatus.DONE_SHIPPING;
     }
 }
 

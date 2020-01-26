@@ -1,4 +1,4 @@
-package dev.anyjava.bot.infra.order;
+package dev.anyjava.bot.adapter.order;
 
 import dev.anyjava.bot.order.domain.OrderForm;
 import org.springframework.cloud.openfeign.FeignClient;

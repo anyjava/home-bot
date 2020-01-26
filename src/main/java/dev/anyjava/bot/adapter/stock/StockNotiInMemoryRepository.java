@@ -1,4 +1,4 @@
-package dev.anyjava.bot.infra.stock;
+package dev.anyjava.bot.adapter.stock;
 
 import dev.anyjava.bot.stock.domain.StockNoti;
 import dev.anyjava.bot.stock.domain.StockNotiRepository;

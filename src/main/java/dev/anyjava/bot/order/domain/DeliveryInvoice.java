@@ -4,10 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-@Getter
 @ToString
 public class DeliveryInvoice {
+
     private String company;
+    @Getter
     private String invoiceNumber;
 
     @Builder
@@ -18,5 +19,13 @@ public class DeliveryInvoice {
 
     public String getInvoiceNumberWithoutDash() {
         return invoiceNumber.replace("-", "");
+    }
+
+    public DeliveryCompanyType getDeliveryCompanyType() {
+        return DeliveryCompanyType.MAP_BY_KOREAN_NAME.get(this.company);
+    }
+
+    public String getCompanyName() {
+        return this.getDeliveryCompanyType().getKoreanName();
     }
 }

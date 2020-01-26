@@ -1,6 +1,6 @@
 package dev.anyjava.bot.order.repository;
 
-import dev.anyjava.bot.infra.order.OrderSheetClient;
+import dev.anyjava.bot.adapter.order.OrderSheetClient;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.domain.OrderForm;
 import lombok.RequiredArgsConstructor;

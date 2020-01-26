@@ -32,7 +32,7 @@ class OrderFormMapperTest extends TestSupport {
                 () -> assertThat(aOrder.getPhoneNumber()).isEqualTo("010-1234-1234").as("연락처 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getMemo()).isEqualTo("memoooo").as("주문시 요청 사항 컬럼을 가져와야함"),
                 () -> assertThat(aOrder.getItems().size()).isEqualTo(1).as("item 갯수 검증"),
-                () -> assertThat(aOrder.getDeliveryInvoice().getCompany()).isEqualTo("로젠"),
+                () -> assertThat(aOrder.getDeliveryInvoice().getCompanyName()).isEqualTo("로젠"),
                 () -> assertThat(aOrder.getDeliveryInvoice().getInvoiceNumber()).isEqualTo("729-2263-0001"),
                 () -> assertThat(aOrder.getTotalPrice()).isEqualTo(BigDecimal.valueOf(16_0000L))
         );

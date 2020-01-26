@@ -45,7 +45,7 @@ public class DeliveryInvoiceSmsDTO {
                 .to(orderPhoneNumber)
                 .message(
                         SMS_MESSAGE_FORMAT.replace("_name_", orderName)
-                                .replace("_office_", deliveryInvoice.getCompany())
+                                .replace("_office_", deliveryInvoice.getCompanyName())
                                 .replace("_invoiceNumber_", deliveryInvoice.getInvoiceNumber())
                                 .replace("_items_", itemListStr)
                                 .replace("_toName_", toName)

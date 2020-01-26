@@ -1,6 +1,5 @@
 package dev.anyjava.bot.order.service;
 
-import dev.anyjava.bot.order.domain.DeliveryStatus;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +18,17 @@ public class DeliveryCheckService {
     public List<String> exec() {
         return orderRepository.findAll().stream()
                 .filter(Order::isShipping)
+                .filter(this::acceptDeliveryCompany)
                 .map(this::convertDTO)
                 .collect(Collectors.toList());
     }
 
+    private boolean acceptDeliveryCompany(Order order) {
+        return order.getDeliveryInvoice().getDeliveryCompanyType().isAbleTracking();
+    }
+
     private String convertDTO(Order order) {
-        DeliveryStatus deliveryStatus = deliveryQueryService.findByTrackId(order.getDeliveryInvoice());
-        return String.format("rowId=%d, status=%s ", order.getRowId(), deliveryStatus.name());
+        deliveryQueryService.findByTrackId(order);
+        return String.format("rowId=%d, status=%s ", order.getRowId(), order.getStatus().getDesc());
     }
 }
