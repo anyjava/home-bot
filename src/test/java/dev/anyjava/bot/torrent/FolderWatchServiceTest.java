@@ -1,6 +1,7 @@
 package dev.anyjava.bot.torrent;
 
 import dev.anyjava.bot.support.TestSupport;
+import dev.anyjava.bot.torrent.service.FolderWatchService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

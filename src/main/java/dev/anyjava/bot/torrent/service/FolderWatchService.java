@@ -1,4 +1,4 @@
-package dev.anyjava.bot.torrent;
+package dev.anyjava.bot.torrent.service;
 
 import dev.anyjava.bot.line.LineMessageBroker;
 import lombok.extern.slf4j.Slf4j;

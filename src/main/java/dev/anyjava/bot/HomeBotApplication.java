@@ -1,6 +1,6 @@
 package dev.anyjava.bot;
 
-import dev.anyjava.bot.torrent.FolderWatchService;
+import dev.anyjava.bot.torrent.service.FolderWatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
