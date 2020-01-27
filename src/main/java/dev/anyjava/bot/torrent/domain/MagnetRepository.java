@@ -9,4 +9,5 @@ public interface MagnetRepository extends JpaRepository<Magnet, Long> {
     Optional<Magnet> findTopByTypeOrderByIdDesc(ProgramType type);
 
     List<Magnet> findAllByTypeOrderByIdDesc(ProgramType type);
+    List<Magnet> findTop30ByOrderByIdDesc();
 }

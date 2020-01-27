@@ -1,20 +1,19 @@
 package dev.anyjava.bot.web.controller;
 
-import dev.anyjava.bot.torrent.domain.ProgramType;
-import dev.anyjava.bot.torrent.service.TorrentQueryService;
+import dev.anyjava.bot.torrent.domain.MagnetRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
 public class TorrentController {
 
-    private final TorrentQueryService torrentQueryService;
+    private final TorrentRssConverter torrentRssConverter;
+    private final MagnetRepository magnetRepository;
 
-    @GetMapping(value = "/torrents/by-type")
-    public String getAll(@RequestParam ProgramType type) {
-        return torrentQueryService.getAll(type).toString();
+    @GetMapping(value = "/torrents")
+    public String getAll() {
+        return torrentRssConverter.convertRss(magnetRepository.findTop30ByOrderByIdDesc());
     }
 }
