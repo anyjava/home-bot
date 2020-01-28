@@ -25,6 +25,7 @@ public class Order {
     private OrderStatus status;
     private DeliveryInvoice deliveryInvoice;
     private DepositType depositType;
+    private BigDecimal discountAmount;
 
     @Builder
     public Order(Long rowId,
@@ -36,7 +37,8 @@ public class Order {
                  String memo2,
                  OrderStatus status,
                  DeliveryInvoice deliveryInvoice,
-                 String depositType) {
+                 String depositType,
+                 String discountAmount) {
         this.rowId = rowId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -46,6 +48,7 @@ public class Order {
         this.memo2 = memo2;
         this.status = status;
         this.deliveryInvoice = deliveryInvoice;
+        this.discountAmount = new BigDecimal(StringUtils.isEmpty(discountAmount) ? "0" : discountAmount);
 
         if (!StringUtils.isEmpty(depositType)) {
             this.depositType = DepositType.valueOf(depositType);

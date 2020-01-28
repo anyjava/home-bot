@@ -36,6 +36,7 @@ class OrderFormMapperTest extends TestSupport {
                 () -> assertThat(aOrder.getDeliveryInvoice().getInvoiceNumber()).isEqualTo("729-2263-0001"),
                 () -> assertThat(aOrder.getDepositType().get()).isEqualTo(DepositType.KAKAO),
                 () -> assertThat(aOrder.getTotalPrice()).isEqualTo(BigDecimal.valueOf(16_0000L)),
+                () -> assertThat(aOrder.getDiscountAmount()).isEqualTo(BigDecimal.valueOf(40_000L)),
 
                 () -> assertThat(orders.get(1).getDeliveryInvoice().getCompanyName()).isEqualTo("")
         );

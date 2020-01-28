@@ -21,6 +21,7 @@ enum HeadName {
     MEMO2("memo"),
     STATUS("상태"),
     DEPOSIT_TYPE("입금방법"),
+    DISCOUNT("할인"),
     DELIVERY_COMPANY("택배사"),
     DELIVERY_INVOICE_NUMBER("송장번호")
     ;
