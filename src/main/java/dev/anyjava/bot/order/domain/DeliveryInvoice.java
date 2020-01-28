@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Optional;
+
 @ToString
 public class DeliveryInvoice {
 
@@ -21,11 +23,13 @@ public class DeliveryInvoice {
         return invoiceNumber.replace("-", "");
     }
 
-    public DeliveryCompanyType getDeliveryCompanyType() {
-        return DeliveryCompanyType.MAP_BY_KOREAN_NAME.get(this.company);
+    public Optional<DeliveryCompanyType> getDeliveryCompanyType() {
+        return Optional.ofNullable(DeliveryCompanyType.MAP_BY_KOREAN_NAME.get(this.company));
     }
 
     public String getCompanyName() {
-        return this.getDeliveryCompanyType().getKoreanName();
+        return this.getDeliveryCompanyType()
+                .map(DeliveryCompanyType::getKoreanName)
+                .orElse("");
     }
 }

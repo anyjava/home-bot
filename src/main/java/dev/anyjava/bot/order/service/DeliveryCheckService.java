@@ -1,5 +1,6 @@
 package dev.anyjava.bot.order.service;
 
+import dev.anyjava.bot.order.domain.DeliveryCompanyType;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,9 @@ public class DeliveryCheckService {
     }
 
     private boolean acceptDeliveryCompany(Order order) {
-        return order.getDeliveryInvoice().getDeliveryCompanyType().isAbleTracking();
+        return order.getDeliveryInvoice().getDeliveryCompanyType()
+                .map(DeliveryCompanyType::isAbleTracking)
+                .orElse(false);
     }
 
     private String convertDTO(Order order) {

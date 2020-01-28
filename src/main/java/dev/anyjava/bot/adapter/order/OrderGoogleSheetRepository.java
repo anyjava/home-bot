@@ -1,8 +1,7 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
-import dev.anyjava.bot.adapter.order.OrderSheetClient;
 import dev.anyjava.bot.order.domain.Order;
-import dev.anyjava.bot.order.domain.OrderForm;
+import dev.anyjava.bot.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

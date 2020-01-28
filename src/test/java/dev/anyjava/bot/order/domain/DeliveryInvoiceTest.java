@@ -15,7 +15,7 @@ class DeliveryInvoiceTest {
     void getDeliveryCompanyType(String companyKoreanName, DeliveryCompanyType expectedValue) {
         DeliveryInvoice deliveryInvoice = new DeliveryInvoice(companyKoreanName, "");
 
-        assertThat(deliveryInvoice.getDeliveryCompanyType()).isEqualTo(expectedValue);
+        assertThat(deliveryInvoice.getDeliveryCompanyType().get()).isEqualTo(expectedValue);
     }
 
     static Stream<Arguments> getCompanies() {

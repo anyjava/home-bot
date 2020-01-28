@@ -1,4 +1,4 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
 import com.google.common.collect.Lists;
 import dev.anyjava.bot.order.domain.*;
@@ -38,14 +38,15 @@ public class OrderFormMapper {
                                 .invoiceNumber(getStringValue(row, rowHeader, HeadName.DELIVERY_INVOICE_NUMBER))
                                 .build()
                 )
+                .depositType(getStringValue(row, rowHeader, HeadName.DEPOSIT_TYPE))
                 .build();
     }
 
     private static List<OrderItem> mapOrderItems(List row, RowHeader rowHeader) {
         List<OrderItem> items = Lists.newArrayList();
-        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM1), OrderItemType.NO_1);
-        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM2), OrderItemType.NO_2);
-        add(items, getStringValueOf(row, rowHeader, HeadName.ITEM3), OrderItemType.NO_3);
+        add(items, getStringValue(row, rowHeader, HeadName.ITEM1), OrderItemType.NO_1);
+        add(items, getStringValue(row, rowHeader, HeadName.ITEM2), OrderItemType.NO_2);
+        add(items, getStringValue(row, rowHeader, HeadName.ITEM3), OrderItemType.NO_3);
         return items;
     }
 
@@ -61,33 +62,24 @@ public class OrderFormMapper {
 
     private static DeliveryDest mapDeliveryDest(List row, RowHeader rowHeader) {
         return DeliveryDest.builder()
-                .toName(getStringValueOf(row, rowHeader, HeadName.TO_NAME))
-                .phoneNumber(makePhoneNumber(getStringValueOf(row, rowHeader, HeadName.TO_PHONE_NUMBER).replaceAll("-", "")))
-                .address(getStringValueOf(row, rowHeader, HeadName.TO_ADDRESS))
-                .wantedDate(getStringValueOf(row, rowHeader, HeadName.WANTED_DATE))
-                .deliveryStartDate(DateStringParser.parse(getStringValueOf(row, rowHeader, HeadName.DELIVERY_DATE)))
+                .toName(getStringValue(row, rowHeader, HeadName.TO_NAME))
+                .phoneNumber(makePhoneNumber(getStringValue(row, rowHeader, HeadName.TO_PHONE_NUMBER).replaceAll("-", "")))
+                .address(getStringValue(row, rowHeader, HeadName.TO_ADDRESS))
+                .wantedDate(getStringValue(row, rowHeader, HeadName.WANTED_DATE))
+                .deliveryStartDate(DateStringParser.parse(getStringValue(row, rowHeader, HeadName.DELIVERY_DATE)))
                 .build();
     }
 
     public static String makePhoneNumber(String phoneNoStr) {
         String regEx = "(\\d{3})(\\d{3,4})(\\d{4})";
-        if(!Pattern.matches(regEx, phoneNoStr)) return "";
+        if (!Pattern.matches(regEx, phoneNoStr)) return "";
         return phoneNoStr.replaceAll(regEx, "$1-$2-$3");
 
     }
 
-    private static String getStringValueOf(List row, RowHeader rowHeader, HeadName headName) {
-        try {
-            return (String) row.get(rowHeader.getIndex(headName));
-        } catch (IndexOutOfBoundsException e) {
-            log.error("failed to loadString type={}, index={}", headName, rowHeader.getIndex(headName));
-            return Strings.EMPTY;
-        }
-    }
-
     private static String getStringValue(List row, RowHeader rowHeader, HeadName headName) {
         try {
-            return getStringValueOf(row, rowHeader, headName);
+            return (String) row.get(rowHeader.getIndex(headName));
         } catch (IndexOutOfBoundsException e) {
             log.error("failed to loadString type={}, index={}", headName, rowHeader.getIndex(headName));
             return Strings.EMPTY;

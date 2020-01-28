@@ -1,4 +1,4 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
 import lombok.extern.slf4j.Slf4j;
 

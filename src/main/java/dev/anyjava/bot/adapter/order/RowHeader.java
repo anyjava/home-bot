@@ -1,4 +1,4 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
 import com.google.common.collect.Maps;
 import org.springframework.data.util.Pair;

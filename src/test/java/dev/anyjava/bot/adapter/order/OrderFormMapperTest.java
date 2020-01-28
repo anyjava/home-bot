@@ -1,9 +1,9 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.anyjava.bot.order.domain.DepositType;
 import dev.anyjava.bot.order.domain.Order;
-import dev.anyjava.bot.order.domain.OrderForm;
 import dev.anyjava.bot.support.TestSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,10 @@ class OrderFormMapperTest extends TestSupport {
                 () -> assertThat(aOrder.getItems().size()).isEqualTo(1).as("item 갯수 검증"),
                 () -> assertThat(aOrder.getDeliveryInvoice().getCompanyName()).isEqualTo("로젠"),
                 () -> assertThat(aOrder.getDeliveryInvoice().getInvoiceNumber()).isEqualTo("729-2263-0001"),
-                () -> assertThat(aOrder.getTotalPrice()).isEqualTo(BigDecimal.valueOf(16_0000L))
+                () -> assertThat(aOrder.getDepositType().get()).isEqualTo(DepositType.KAKAO),
+                () -> assertThat(aOrder.getTotalPrice()).isEqualTo(BigDecimal.valueOf(16_0000L)),
+
+                () -> assertThat(orders.get(1).getDeliveryInvoice().getCompanyName()).isEqualTo("")
         );
 
     }

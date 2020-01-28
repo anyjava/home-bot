@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -23,13 +24,17 @@ public class DeliveryQueryServiceImpl implements DeliveryQueryService {
 
     @Override
     public Order findByTrackId(Order order) {
-        DeliveryCompanyType deliveryCompanyType = order.getDeliveryInvoice().getDeliveryCompanyType();
-        if (deliveryCompanyType == DeliveryCompanyType.LOGEN) {
+        Optional<DeliveryCompanyType> deliveryCompanyType = order.getDeliveryInvoice().getDeliveryCompanyType();
+        if (deliveryCompanyType.isEmpty()) {
+            return order;
+        }
+
+        if (deliveryCompanyType.get() == DeliveryCompanyType.LOGEN) {
             DeliveryStatus deliveryStatus = findByTrackId(order.getDeliveryInvoice());
             if (deliveryStatus == DeliveryStatus.DONE) {
                 order.doneShipping();
             }
-        } else if (deliveryCompanyType == DeliveryCompanyType.LOTTE) {
+        } else if (deliveryCompanyType.get() == DeliveryCompanyType.LOTTE) {
             DeliveryStatus deliveryStatus = findStatus(order.getDeliveryInvoice());
             if (deliveryStatus == DeliveryStatus.DONE) {
                 order.doneShipping();

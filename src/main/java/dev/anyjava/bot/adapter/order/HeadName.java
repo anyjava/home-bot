@@ -1,4 +1,4 @@
-package dev.anyjava.bot.order.repository;
+package dev.anyjava.bot.adapter.order;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +20,7 @@ enum HeadName {
     MEMO("주문시 요청 사항"),
     MEMO2("memo"),
     STATUS("상태"),
+    DEPOSIT_TYPE("입금방법"),
     DELIVERY_COMPANY("택배사"),
     DELIVERY_INVOICE_NUMBER("송장번호")
     ;

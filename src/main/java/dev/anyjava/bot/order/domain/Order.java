@@ -5,9 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.apache.logging.log4j.util.Strings;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @ToString
@@ -22,6 +24,7 @@ public class Order {
     private String memo2;
     private OrderStatus status;
     private DeliveryInvoice deliveryInvoice;
+    private DepositType depositType;
 
     @Builder
     public Order(Long rowId,
@@ -32,7 +35,8 @@ public class Order {
                  String memo,
                  String memo2,
                  OrderStatus status,
-                 DeliveryInvoice deliveryInvoice) {
+                 DeliveryInvoice deliveryInvoice,
+                 String depositType) {
         this.rowId = rowId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -42,6 +46,10 @@ public class Order {
         this.memo2 = memo2;
         this.status = status;
         this.deliveryInvoice = deliveryInvoice;
+
+        if (!StringUtils.isEmpty(depositType)) {
+            this.depositType = DepositType.valueOf(depositType);
+        }
     }
 
     public boolean acceptedOrder() {
@@ -65,6 +73,10 @@ public class Order {
     public void doneShipping() {
         Preconditions.checkState(status == OrderStatus.SHIPPING, "Shipping 상태의 주문만 완료시킬수 있습니다. rowId={}", rowId);
         this.status = OrderStatus.DONE_SHIPPING;
+    }
+
+    public Optional<DepositType> getDepositType() {
+        return Optional.ofNullable(this.depositType);
     }
 }
 
