@@ -1,0 +1,43 @@
+dependencies {
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: "com.google.cloud.tools.jib"
+
+    compile project(":common")
+
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    // bot api
+    compile "org.telegram:telegrambots-spring-boot-starter:4.1.2"
+//     https://mvnrepository.com/artifact/com.linecorp.bot/line-bot-spring-boot
+    compile "com.linecorp.bot:line-bot-spring-boot:3.1.0"
+
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    runtime("org.springframework.boot:spring-boot-properties-migrator") {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
+    runtimeOnly group: 'com.h2database', name: 'h2', version: '1.4.200'
+
+    compile('io.jsonwebtoken:jjwt:0.9.1') {
+        exclude group: 'org.json', module: 'json'
+    }
+    // jsoup HTML parser library @ https://jsoup.org/
+    compile "org.jsoup:jsoup:1.12.1"
+
+    compile 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'com.vaadin.external.google', module: 'android-json'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+}
+
+jib {
+    container.useCurrentTimestamp = true
+}

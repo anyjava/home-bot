@@ -1,2 +1,5 @@
 rootProject.name = 'home-bot'
 
+include 'common'
+include 'core'
+

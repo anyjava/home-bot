@@ -1,0 +1,7 @@
+
+dependencies {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+}
+
+jar.enabled = true
