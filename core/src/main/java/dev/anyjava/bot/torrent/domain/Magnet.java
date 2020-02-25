@@ -18,14 +18,17 @@ public class Magnet {
     static {
         Magnet nullMagnetEnt = new Magnet();
         nullMagnetEnt.id = 0L;
+        nullMagnetEnt.wrId = 0;
         nullMagnetEnt.type = ProgramType.ENT;
 
         Magnet nullMagnetDrama = new Magnet();
         nullMagnetDrama.id = 0L;
+        nullMagnetDrama.wrId = 0;
         nullMagnetDrama.type = ProgramType.DRAMA;
 
         Magnet nullMagnetMovie = new Magnet();
         nullMagnetMovie.id = 0L;
+        nullMagnetMovie.wrId = 0;
         nullMagnetMovie.type = ProgramType.MOVIE;
 
         NULL_MAGNET_MAP = Map.of(
@@ -44,6 +47,9 @@ public class Magnet {
 
     private String title;
 
+    @Enumerated(EnumType.STRING)
+    private SiteType siteType;
+
     private long wrId;
 
     @Setter
@@ -51,8 +57,9 @@ public class Magnet {
 
     private LocalDateTime createdAt;
 
-    public static Magnet init(ProgramType type, String title, long wrId) {
+    public static Magnet init(SiteType siteType, ProgramType type, String title, long wrId) {
         Magnet magnet = new Magnet();
+        magnet.siteType = siteType;
         magnet.title = title;
         magnet.type = type;
         magnet.wrId = wrId;

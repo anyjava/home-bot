@@ -16,7 +16,7 @@ class MagnetRepositoryTest extends TestSupport {
 
     @Test
     void test_findTopByOrderByIdDesc() {
-        magnetRepository.findTopByTypeOrderByIdDesc(ProgramType.DRAMA);
+        magnetRepository.findTopByTypeAndSiteTypeOrderByIdDesc(ProgramType.DRAMA, SiteType.MAX);
     }
 
     @Test

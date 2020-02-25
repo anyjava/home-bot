@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MagnetRepository extends JpaRepository<Magnet, Long> {
-    Optional<Magnet> findTopByTypeOrderByIdDesc(ProgramType type);
+    Optional<Magnet> findTopByTypeAndSiteTypeOrderByIdDesc(ProgramType type, SiteType siteType);
 
     List<Magnet> findAllByTypeOrderByIdDesc(ProgramType type);
     List<Magnet> findTop30ByOrderByIdDesc();

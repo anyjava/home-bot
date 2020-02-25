@@ -7,6 +7,13 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+
 
 # https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
 feign:
@@ -46,7 +53,7 @@ spring:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
 
 line:
   bot:

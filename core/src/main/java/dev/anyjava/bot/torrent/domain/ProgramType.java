@@ -3,6 +3,8 @@ package dev.anyjava.bot.torrent.domain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 @RequiredArgsConstructor
@@ -15,6 +17,10 @@ public enum ProgramType {
 
     @Getter
     private final Predicate<Magnet> filter;
+
+    public static ProgramType[] getValues() {
+        return new ProgramType[]{ENT, DRAMA};
+    }
 
     private static class Constants {
         public static final Predicate<Magnet> COMMON_PREDICATE = m -> m.getTitle().contains("720") && m.getTitle().contains("NEXT");
