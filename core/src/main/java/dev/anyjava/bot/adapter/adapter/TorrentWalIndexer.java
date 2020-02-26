@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TorrentWalIndexer implements TorrentMagnetIndexer {
 
+
     private static final Map<ProgramType, String> TYPE_PARAMETERS = Map.of(
             ProgramType.ENT, "VARIETY",
             ProgramType.DRAMA, "DRAMA"

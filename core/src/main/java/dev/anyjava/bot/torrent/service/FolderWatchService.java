@@ -26,16 +26,16 @@ public class FolderWatchService {
     @Async
     public void watch() {
         log.info("stared watch folder = {}", downloadPath);
-        try(WatchService watchService = FileSystems.getDefault().newWatchService()) {
+        try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             Path watchPath = Paths.get(downloadPath);
 
             Files.walkFileTree(watchPath, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-                dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
-                return FileVisitResult.CONTINUE;
-            }
-        });
+                    dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+                    return FileVisitResult.CONTINUE;
+                }
+            });
 
             WatchKey key;
             while ((key = watchService.take()) != null) {
@@ -46,8 +46,11 @@ public class FolderWatchService {
                     }
                 }
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             log.error("failed watch folders, message={}", e.getMessage(), e);
+        } catch (InterruptedException e) {
+            log.error("failed watch folders, message={}", e.getMessage(), e);
+            Thread.currentThread().interrupt();
         }
     }
 }

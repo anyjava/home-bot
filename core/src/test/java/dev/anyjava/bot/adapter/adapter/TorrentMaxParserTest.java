@@ -2,11 +2,13 @@ package dev.anyjava.bot.adapter.adapter;
 
 import dev.anyjava.bot.support.TestSupport;
 import dev.anyjava.bot.torrent.domain.Magnet;
+import dev.anyjava.bot.torrent.domain.ProgramType;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
@@ -34,12 +36,13 @@ class TorrentMaxParserTest extends TestSupport {
 
     @Test
     void parseDetail() {
-        Magnet magnet = new Magnet();
-        String html = torrentMaxClient.getMagnet("VARIETY", 12408);
+        Magnet magnet = Magnet.nullOf(ProgramType.ENT);
+        ReflectionTestUtils.setField(magnet, "wrId", 12585);
+        String html = "";
 
         torrentMaxParser.parseDetail(magnet, html);
 
-        assertThat(magnet.getValue()).isEqualTo("magnet:?xt=urn:btih:2ea6a37b41640417207320c4ec716478dc762b38");
+        assertThat(magnet.getValue()).isEqualTo("magnet:?xt=urn:btih:8c16cf0c2ee357686c264bdfc8ace5e4bf6a9f96");
     }
 
 }

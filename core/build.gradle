@@ -24,6 +24,8 @@ dependencies {
     }
     // jsoup HTML parser library @ https://jsoup.org/
     compile "org.jsoup:jsoup:1.12.1"
+    // https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp
+    compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
 
     compile 'org.springframework.boot:spring-boot-configuration-processor'
 
@@ -39,5 +41,8 @@ dependencies {
 }
 
 jib {
-    container.useCurrentTimestamp = true
+    container {
+        useCurrentTimestamp = true
+        jvmFlags = ['-Dfile.encoding=UTF-8']
+    }
 }
