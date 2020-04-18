@@ -26,7 +26,7 @@ class TorrentMaxClientTest extends TestSupport {
 //        client.getMagnet2("VARIETY", 12585, "1");
 
         OkHttpClient client = new OkHttpClient();
-        String requestURL = "https://torrentmax.net/link?bo_table=VARIETY&wr_id=12585&no=1";
+        String requestURL = "https://torrentmax.gg/link?bo_table=VARIETY&wr_id=12585&no=1";
         Request request = new Request.Builder()
                 .url(requestURL)
                 .build(); //GET Request

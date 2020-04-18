@@ -4,8 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value = "torrentMax", url = "https://torrentmax.gg")
-public interface TorrentMaxClient {
+@FeignClient(value = "torrentVery", url = "https://torrentvery.com/")
+public interface TorrentVeryClient {
 
     @GetMapping("/max/{type}")
     String getList(@PathVariable("type") String type);
