@@ -1,10 +1,10 @@
 package dev.anyjava.bot.adapter.adapter;
 
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 import dev.anyjava.bot.torrent.domain.Magnet;
 import dev.anyjava.bot.torrent.domain.ProgramType;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
