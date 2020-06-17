@@ -37,7 +37,7 @@ public class TorrentMaxParser implements TorrentParser {
 
     private MagnetDTO convertDTO(Element element) {
         return MagnetDTO.builder()
-                .url(element.attr("href").replaceAll("https://torrentmax.gg", ""))
+                .url(element.attr("href").replaceAll("https://torrentmax.co", ""))
                 .title(element.text())
                 .build();
     }
@@ -45,7 +45,8 @@ public class TorrentMaxParser implements TorrentParser {
     @Override
     public Magnet parseDetail(Magnet magnet, String content) {
 
-        String requestURL = String.format("https://torrentmax.gg/link?bo_table=%s&wr_id=%d&no=1", TYPE_PARAMETERS.get(magnet.getType()), magnet.getWrId());
+        String requestURL = String.format("https://torrentmax.co/link?bo_table=%s&wr_id=%d&no=1",
+                                          TYPE_PARAMETERS.get(magnet.getType()), magnet.getWrId());
         Request request = new Request.Builder()
                 .url(requestURL)
                 .build(); //GET Request
