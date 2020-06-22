@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 public class TorrentScrapingService {
 
-    private static final SiteType TARGET_SITE = SiteType.MAX;
+    private static final SiteType TARGET_SITE = SiteType.SIR;
 
     private final TorrentMagnetIndexer magnetIndexer;
     private final MagnetRepository magnetRepository;
@@ -26,8 +26,6 @@ public class TorrentScrapingService {
                 .map(this::getLatestMagnet)
                 .map(magnetIndexer::findMagnetList)
                 .flatMap(Collection::stream)
-                .filter(v -> v.getType().getFilter().test(v))
-                .map(magnetIndexer::findMagnetUrl)
                 .forEach(magnetRepository::save);
     }
 

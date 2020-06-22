@@ -6,6 +6,4 @@ import java.util.List;
 
 public interface TorrentMagnetIndexer {
     List<Magnet> findMagnetList(Magnet latestMagnet);
-
-    Magnet findMagnetUrl(Magnet magnet);
 }

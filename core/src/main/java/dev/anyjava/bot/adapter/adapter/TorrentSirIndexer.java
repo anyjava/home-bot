@@ -16,18 +16,18 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TorrentWalIndexer implements TorrentMagnetIndexer {
+public class TorrentSirIndexer implements TorrentMagnetIndexer {
 
 
     private static final Map<ProgramType, String> TYPE_PARAMETERS = Map.of(
-            ProgramType.ENT, "VARIETY",
-            ProgramType.DRAMA, "DRAMA"
+            ProgramType.ENT, "entertain",
+            ProgramType.DRAMA, "drama"
 //            ,
 //            ProgramType.MOVIE, "torrent_movie"
     );
 
-    private final TorrentMaxClient torrentMaxClient;
-    private final TorrentMaxParser torrentMaxParser;
+    private final TorrentSirClient torrentMaxClient;
+    private final TorrentSirParser torrentMaxParser;
 
     @Override
     public List<Magnet> findMagnetList(Magnet latestMagnet) {
@@ -36,12 +36,13 @@ public class TorrentWalIndexer implements TorrentMagnetIndexer {
         return torrentMaxParser.findAllList(doc).stream()
                 .filter(v -> v.getWrId() > latestMagnet.getWrId())
                 .map(v -> v.toMagnet(latestMagnet.getType()))
+                .filter(v -> v.getType().getFilter().test(v))
+                .map(this::findMagnetUrl)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Magnet findMagnetUrl(Magnet magnet) {
-        String html = torrentMaxClient.getMagnet(TYPE_PARAMETERS.get(magnet.getType()), magnet.getWrId());
+    private Magnet findMagnetUrl(Magnet magnet) {
+        String html = torrentMaxClient.getDetail(TYPE_PARAMETERS.get(magnet.getType()), magnet.getWrId());
         return torrentMaxParser.parseDetail(magnet, html);
     }
 
