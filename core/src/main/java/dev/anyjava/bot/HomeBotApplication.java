@@ -6,12 +6,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.telegram.telegrambots.ApiContextInitializer;
 
 @Slf4j
 @RequiredArgsConstructor
+@ConfigurationPropertiesScan
+@EnableConfigurationProperties
 @EnableScheduling
 @EnableFeignClients
 @EnableAsync
@@ -19,6 +24,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class HomeBotApplication implements CommandLineRunner {
 
     private final FolderWatchService folderWatchService;
+
+    static {
+        ApiContextInitializer.init();
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(HomeBotApplication.class, args);

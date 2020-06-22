@@ -38,6 +38,11 @@ line:
   groups:
     family: ${to}
 
+telegram:
+  token: ${tele.token}
+  botName: ${tele.botname}
+  managerChatId: ${tele.managerChatId}
+
 home:
   bot:
     downloadPath: ${downloadPath}

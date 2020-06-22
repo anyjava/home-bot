@@ -9,6 +9,8 @@ import org.springframework.test.context.ActiveProfiles;
         classes = HomeBotApplication.class,
         properties = {"line.channelToken=test",
                 "line.channelSecret=test",
+                "tele.token=tttt",
+                "tele.botname=ttttName",
                 "home.bot.downloadPath=/var/tmp",
                 "to=test"})
 public abstract class TestSupport {
