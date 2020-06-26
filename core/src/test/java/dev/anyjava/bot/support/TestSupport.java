@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
                 "line.channelSecret=test",
                 "tele.token=tttt",
                 "tele.botname=ttttName",
+                "tele.managerChatId=111",
                 "home.bot.downloadPath=/var/tmp",
                 "to=test"})
 public abstract class TestSupport {
