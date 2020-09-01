@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TelegramBotConfigTest extends TestSupport {
+class TelegramBotPropertiesTest extends TestSupport {
 
     @Autowired
-    TelegramBotConfig telegramBotConfig;
+    TelegramBotProperties telegramBotProperties;
 
     @Test
     void testToken() {
-        assertThat(telegramBotConfig.getToken()).isEqualTo("tttt");
-        assertThat(telegramBotConfig.getBotName()).isEqualTo("ttttName");
+        assertThat(telegramBotProperties.getToken()).isEqualTo("tttt");
+        assertThat(telegramBotProperties.getBotName()).isEqualTo("ttttName");
     }
 }

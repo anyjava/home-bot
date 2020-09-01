@@ -4,7 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(value = "torrentSir", url = "https://torrentsir9.com/")
+@FeignClient(value = "torrentSir", url = "https://torrentsir15.com/")
 public interface TorrentSirClient {
 
     @GetMapping("/bbs/board.php")

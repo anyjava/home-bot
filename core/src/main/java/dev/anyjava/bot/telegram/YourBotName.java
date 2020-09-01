@@ -1,19 +1,17 @@
 package dev.anyjava.bot.telegram;
 
-import dev.anyjava.bot.config.TelegramBotConfig;
+import dev.anyjava.bot.config.TelegramBotProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 //Standard Spring component annotation
 @Slf4j
-@Component
+@RequiredArgsConstructor
 public class YourBotName extends TelegramLongPollingBot {
 
-  @Autowired
-  TelegramBotConfig telegramBotConfig;
+  private final TelegramBotProperties telegramBotProperties;
 
   @Override
   public void onUpdateReceived(Update update) {
@@ -22,12 +20,12 @@ public class YourBotName extends TelegramLongPollingBot {
 
   @Override
   public String getBotUsername() {
-    return telegramBotConfig.getBotName();
+    return telegramBotProperties.getBotName();
   }
 
   @Override
   public String getBotToken() {
-    return telegramBotConfig.getToken();
+    return telegramBotProperties.getToken();
   }
   //Bot body.
 }

@@ -1,24 +1,23 @@
 package dev.anyjava.bot.telegram;
 
-import dev.anyjava.bot.config.TelegramBotConfig;
+import dev.anyjava.bot.config.TelegramBotProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @RequiredArgsConstructor
-@Component
 @Slf4j
-public class TelegramNotiService {
+public class TelegramNotiService implements MessengerNotiable {
 
     private final BotSender botSender;
-    private final TelegramBotConfig telegramBotConfig;
+    private final TelegramBotProperties telegramBotProperties;
 
-    public void sendToManager(String messsage) {
+    @Override
+    public void sendToManager(String message) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(telegramBotConfig.getManagerChatId());
-        sendMessage.setText(messsage);
+        sendMessage.setChatId(telegramBotProperties.getManagerChatId());
+        sendMessage.setText(message);
 
         try {
             botSender.execute(sendMessage);

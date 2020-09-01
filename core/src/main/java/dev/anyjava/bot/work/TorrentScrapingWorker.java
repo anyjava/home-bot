@@ -1,7 +1,6 @@
 package dev.anyjava.bot.work;
 
-import dev.anyjava.bot.line.LineNotiService;
-import dev.anyjava.bot.telegram.TelegramNotiService;
+import dev.anyjava.bot.telegram.MessengerNotiable;
 import dev.anyjava.bot.torrent.service.TorrentScrapingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +13,7 @@ import org.springframework.stereotype.Component;
 public class TorrentScrapingWorker {
 
     private final TorrentScrapingService torrentScrapingService;
-    private final LineNotiService lineNotiService;
-    private final TelegramNotiService telegramNotiService;
+    private final MessengerNotiable messengerNotiable;
 
     @Scheduled(cron = "0 */10 * * * *", zone = "JST")
     public void workerRun() {
@@ -23,7 +21,7 @@ public class TorrentScrapingWorker {
             torrentScrapingService.run();
         } catch (RuntimeException e) {
             log.error("failed, magnet scraping job", e);
-            telegramNotiService.sendToManager("마그넷 스크래핑 job 이 실패했습니다. " + e.getMessage());
+            messengerNotiable.sendToManager("마그넷 스크래핑 job 이 실패했습니다. " + e.getMessage());
         }
     }
  }
