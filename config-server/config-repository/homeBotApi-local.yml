@@ -1,0 +1,3 @@
+feign:
+  host:
+    torrent: test

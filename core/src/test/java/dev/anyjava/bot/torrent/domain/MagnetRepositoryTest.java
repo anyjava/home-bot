@@ -21,6 +21,6 @@ class MagnetRepositoryTest extends TestSupport {
 
     @Test
     void test_findTop30OrderByIdDesc() {
-        magnetRepository.findTop30ByOrderByIdDesc();
+        magnetRepository.findTop50ByOrderByIdDesc();
     }
 }

@@ -1,6 +1,7 @@
 package dev.anyjava.bot;
 
 import dev.anyjava.bot.torrent.service.FolderWatchService;
+import dev.anyjava.bot.work.TorrentScrapingWorker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -24,6 +25,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 public class HomeBotApplication implements CommandLineRunner {
 
     private final FolderWatchService folderWatchService;
+    private final TorrentScrapingWorker torrentScrapingWorker;
 
     static {
         ApiContextInitializer.init();
@@ -38,5 +40,8 @@ public class HomeBotApplication implements CommandLineRunner {
         log.info("STARTED FOLDER WATCH!!");
         folderWatchService.watch();
         log.info("END FOLDER WATCH!!");
+
+        torrentScrapingWorker.workerRun();
+        log.info("STARTED scrapping !!");
     }
 }

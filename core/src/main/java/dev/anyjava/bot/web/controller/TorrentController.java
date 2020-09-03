@@ -14,6 +14,6 @@ public class TorrentController {
 
     @GetMapping(value = "/torrents")
     public String getAll() {
-        return torrentRssConverter.convertRss(magnetRepository.findTop30ByOrderByIdDesc());
+        return torrentRssConverter.convertRss(magnetRepository.findTop50ByOrderByIdDesc());
     }
 }
