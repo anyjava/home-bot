@@ -9,4 +9,4 @@ spring:
     config:
       server:
         git:
-          uri: "https://github.com/anyjava/home-bot"
+          uri: "https://github.com/anyjava/home-bot-config"

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: homeBotApi
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
@@ -16,6 +18,12 @@ spring:
       settings:
         web-allow-others: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
 # https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html
 feign:
   client:
@@ -31,8 +39,8 @@ feign:
 
 line:
   bot:
-    channelToken: ${line.channelToken}
-    channelSecret: ${line.channelSecret}
+    channelToken: ${line.channelToken:dummy}
+    channelSecret: ${line.channelSecret:dummy}
     connectTimeout: 3000
     readTimeout: 3000
     writeTimeout: 300
@@ -56,6 +64,9 @@ google:
 ---
 spring:
   profiles: local
+  cloud:
+    config:
+      uri: http://localhost:8888
 
 logging:
   level:
@@ -77,3 +88,6 @@ spring:
   profiles: production
   datasource:
     url: jdbc:h2:file:/db/h2db_prod;AUTO_SERVER=true
+  cloud:
+    config:
+      uri: http://localhost:8888

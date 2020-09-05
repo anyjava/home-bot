@@ -7,13 +7,15 @@ dependencies {
 
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+    implementation "org.springframework.cloud:spring-cloud-starter-config"
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
     // bot api
     compile "org.telegram:telegrambots-spring-boot-starter:4.1.2"
 //     https://mvnrepository.com/artifact/com.linecorp.bot/line-bot-spring-boot
     compile "com.linecorp.bot:line-bot-spring-boot:3.1.0"
 
-    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
     runtime("org.springframework.boot:spring-boot-properties-migrator") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
