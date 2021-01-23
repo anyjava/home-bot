@@ -32,4 +32,8 @@ public class DeliveryInvoice {
                 .map(DeliveryCompanyType::getKoreanName)
                 .orElse("");
     }
+
+    public String getFullyString() {
+        return this.getCompanyName() + " " + this.getInvoiceNumber();
+    }
 }

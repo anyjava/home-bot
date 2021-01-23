@@ -1,5 +1,6 @@
 package dev.anyjava.bot.order.domain;
 
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,6 +17,18 @@ class DeliveryInvoiceTest {
         DeliveryInvoice deliveryInvoice = new DeliveryInvoice(companyKoreanName, "");
 
         assertThat(deliveryInvoice.getDeliveryCompanyType().get()).isEqualTo(expectedValue);
+    }
+
+    @Test
+    void getTotalString() {
+        // given
+        DeliveryInvoice deliveryInvoice = new DeliveryInvoice("로젠", "123123");
+
+        // when
+        String fullyString = deliveryInvoice.getFullyString();
+
+        // then
+        assertThat(fullyString).isEqualTo("로젠 123123");
     }
 
     static Stream<Arguments> getCompanies() {

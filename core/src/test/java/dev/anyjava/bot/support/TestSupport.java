@@ -1,7 +1,10 @@
 package dev.anyjava.bot.support;
 
 import dev.anyjava.bot.HomeBotApplication;
+import dev.anyjava.bot.work.TorrentScrapingWorker;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles("test")
@@ -15,4 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
                 "home.bot.downloadPath=/var/tmp",
                 "to=test"})
 public abstract class TestSupport {
+    @MockBean
+    private TorrentScrapingWorker torrentScrapingWorker;
 }

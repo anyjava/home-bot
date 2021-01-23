@@ -8,6 +8,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,6 +81,10 @@ public class Order {
 
     public Optional<DepositType> getDepositType() {
         return Optional.ofNullable(this.depositType);
+    }
+
+    public LocalDate getDeliveryStartDate() {
+        return this.deliveryDest.getDeliveryStartDate();
     }
 }
 

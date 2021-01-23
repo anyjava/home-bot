@@ -42,7 +42,7 @@ class TorrentSirParserTest extends TestSupport {
 
     @Test
     void parseWrId() {
-        String url = "https://torrentsir15.com/bbs/board.php?bo_table=entertain&wr_id=14634";
+        String url = "https://torrentsir30.com/bbs/board.php?bo_table=entertain&wr_id=14634";
         Long wrId = 1L;
 
         String[] strings = url.split("wr_id=");

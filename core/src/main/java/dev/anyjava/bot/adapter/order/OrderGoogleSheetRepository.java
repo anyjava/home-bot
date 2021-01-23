@@ -37,6 +37,7 @@ public class OrderGoogleSheetRepository implements OrderRepository {
         OrderForm sheets = orderSheetClient.getSheets(spreadsheetId, RANGE, apiKey);
         return sheets.getValues().stream()
                 .filter(Order::acceptedOrder)
+                .filter(o -> o.getDeliveryStartDate().isAfter(LocalDate.of(2021, 1, 1)))
                 .collect(Collectors.toList());
     }
 

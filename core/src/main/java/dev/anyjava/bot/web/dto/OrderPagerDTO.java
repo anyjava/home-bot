@@ -31,7 +31,7 @@ public class OrderPagerDTO {
                 .items(order.getItems())
                 .deliveryName(order.getDeliveryDest().getToName())
                 .deliveryAddress(order.getDeliveryDest().getAddress())
-                .deliveryInvoice("") // TODO: cuddy.son 2020-01-8 필드 매핑 필요
+                .deliveryInvoice(order.getDeliveryInvoice().getFullyString())
                 .build();
     }
 

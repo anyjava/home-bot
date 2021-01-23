@@ -7,6 +7,7 @@ import dev.anyjava.bot.stock.service.StockMessageBuilder;
 import dev.anyjava.bot.line.LineNotiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Slf4j
+@Profile("!test")
 @RequiredArgsConstructor
 @Component
 public class StockNotiWorker {

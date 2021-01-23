@@ -8,12 +8,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 class TorrentMaxParserTest extends TestSupport {
@@ -37,7 +35,7 @@ class TorrentMaxParserTest extends TestSupport {
     @Test
     void parseDetail() {
         Magnet magnet = Magnet.nullOf(ProgramType.ENT);
-        ReflectionTestUtils.setField(magnet, "wrId", 12585);
+//        ReflectionTestUtils.setField(magnet, "wrId", 12585);
         String html = "";
 
         torrentMaxParser.parseDetail(magnet, html);
