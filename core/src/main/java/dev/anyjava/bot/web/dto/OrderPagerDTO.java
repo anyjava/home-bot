@@ -14,25 +14,35 @@ import java.util.List;
 @ToString
 public class OrderPagerDTO {
 
+    private static final String STAR_STR = "***-****-";
+
+    private String orderName;
     private String maskedPhoneNumber;
     private List<OrderItem> items;
     private OrderStatus status;
     private String memo;
 
     private String deliveryName;
+    private String deliveryMaskedPhoneNumber;
     private String deliveryAddress;
     private String deliveryInvoice;
 
     public static OrderPagerDTO of(Order order) {
         return OrderPagerDTO.builder()
-                .maskedPhoneNumber("**********" + order.getPhoneNumber().substring(order.getPhoneNumber().length() - 4))
+                .orderName(order.getName())
+                .maskedPhoneNumber(STAR_STR + getMaskedPhoneNumber(order.getPhoneNumber()))
                 .status(order.getStatus())
                 .memo(order.getMemo())
                 .items(order.getItems())
                 .deliveryName(order.getDeliveryDest().getToName())
                 .deliveryAddress(order.getDeliveryDest().getAddress())
                 .deliveryInvoice(order.getDeliveryInvoice().getFullyString())
+                .deliveryMaskedPhoneNumber(STAR_STR + getMaskedPhoneNumber(order.getDeliveryDest().getPhoneNumber()))
                 .build();
+    }
+
+    private static String getMaskedPhoneNumber(String phoneNumber) {
+        return phoneNumber.substring(phoneNumber.length() - 4);
     }
 
     public String getStatusStr() {

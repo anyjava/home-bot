@@ -2,6 +2,7 @@ package dev.anyjava.bot.web.controller;
 
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
+import dev.anyjava.bot.telegram.TelegramNotiService;
 import dev.anyjava.bot.web.dto.OrderPagerDTO;
 import dev.anyjava.bot.web.dto.OrderPagerResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class OrderController {
 
     private final OrderRepository orderRepository;
+    private final TelegramNotiService telegramNotiService;
 
     @GetMapping("/api/orders/by-phone-number")
     public List<Order> getOrderList(@RequestParam String phoneNumber) {
@@ -29,6 +31,8 @@ public class OrderController {
     @GetMapping("/api/orders/by-order-name")
     public OrderPagerResponse getOrderListByName(@RequestParam String orderName) {
         List<Order> orders = orderRepository.findByOrderNumber(orderName);
+
+        telegramNotiService.sendToManager("주문내역이 조회 되었습니다. / " + orderName);
         return new OrderPagerResponse(
                 orderName,
                 orders.stream().map(Order::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add),

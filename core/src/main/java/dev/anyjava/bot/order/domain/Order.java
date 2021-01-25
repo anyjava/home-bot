@@ -86,5 +86,11 @@ public class Order {
     public LocalDate getDeliveryStartDate() {
         return this.deliveryDest.getDeliveryStartDate();
     }
+
+    public int getTotalQuantity() {
+        return this.items.stream()
+                .map(OrderItem::getQuantity)
+                .reduce(0, Integer::sum);
+    }
 }
 

@@ -4,8 +4,10 @@ import dev.anyjava.bot.order.domain.DepositType;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import dev.anyjava.bot.order.service.DeliveryCheckService;
+import dev.anyjava.bot.order.service.OrderQueryService;
 import dev.anyjava.bot.web.dto.DeliveryInvoiceDTO;
 import dev.anyjava.bot.web.dto.DeliveryInvoiceSmsDTO;
+import dev.anyjava.bot.web.dto.OrderReservationDTO;
 import dev.anyjava.bot.web.dto.SalesSummaryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -25,11 +28,27 @@ public class OrderAdminController {
 
     private final OrderRepository orderRepository;
     private final DeliveryCheckService deliveryCheckService;
+    private final OrderQueryService orderQueryService;
 
     @GetMapping("/orders/by-delivery-date")
     public List<DeliveryInvoiceDTO> getOrderListByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate deliveryDate) {
         return orderRepository.findByDeliveryDate(deliveryDate).stream()
                 .map(this::buildDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/order/reservations")
+    public List<OrderReservationDTO> getOrderReservation(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate baseDate) {
+        if (Objects.isNull(baseDate)) {
+            baseDate = LocalDate.now();
+        }
+
+        Map<LocalDate, Integer> map = orderQueryService.findAllReservation(baseDate).stream()
+                .collect(Collectors.toMap(Order::getDeliveryStartDate, Order::getTotalQuantity, Integer::sum));
+
+        return map.keySet().stream()
+                .map(v -> new OrderReservationDTO(v, map.get(v)))
+                .sorted()
                 .collect(Collectors.toList());
     }
 
