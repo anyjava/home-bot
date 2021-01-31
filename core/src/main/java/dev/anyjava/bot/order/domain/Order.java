@@ -92,5 +92,12 @@ public class Order {
                 .map(OrderItem::getQuantity)
                 .reduce(0, Integer::sum);
     }
+
+    public String getDeliveryTraceUrl() {
+        return this.getDeliveryInvoice().getDeliveryCompanyType()
+                .map(DeliveryCompanyType::getUrl)
+                .map(url -> url + this.getDeliveryInvoice().getInvoiceNumberWithoutDash())
+                .orElse("");
+    }
 }
 

@@ -4,11 +4,13 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 
 class OrderTest {
 
@@ -27,6 +29,29 @@ class OrderTest {
 
         // then
         assertThat(totalQuantity).isEqualTo(3);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "로젠, 123-456, https://www.ilogen.com/web/personal/trace/123456",
+            "우체국, 123-456, https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=123456",
+            "롯데, 123-456, 123456",
+            " , 123-456, ",
+    })
+    void testGetDeliveryTraceUrl(String company, String invoiceNumber, String expectedUrl) {
+        // given
+        Order order = Order.builder()
+                .deliveryInvoice(DeliveryInvoice.builder()
+                        .company(company == null ? "" : company)
+                        .invoiceNumber(invoiceNumber)
+                        .build())
+                .build();
+
+        // when
+        String url = order.getDeliveryTraceUrl();
+
+        // then
+        assertThat(url).isEqualTo(expectedUrl == null ? "" : expectedUrl);
     }
 
     @ParameterizedTest

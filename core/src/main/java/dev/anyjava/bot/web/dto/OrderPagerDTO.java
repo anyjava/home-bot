@@ -1,5 +1,6 @@
 package dev.anyjava.bot.web.dto;
 
+import dev.anyjava.bot.order.domain.DeliveryCompanyType;
 import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.domain.OrderItem;
 import dev.anyjava.bot.order.domain.OrderStatus;
@@ -25,7 +26,9 @@ public class OrderPagerDTO {
     private String deliveryName;
     private String deliveryMaskedPhoneNumber;
     private String deliveryAddress;
+    private DeliveryCompanyType deliveryCompanyType;
     private String deliveryInvoice;
+    private String traceUrl;
 
     public static OrderPagerDTO of(Order order) {
         return OrderPagerDTO.builder()
@@ -36,9 +39,15 @@ public class OrderPagerDTO {
                 .items(order.getItems())
                 .deliveryName(order.getDeliveryDest().getToName())
                 .deliveryAddress(order.getDeliveryDest().getAddress())
+                .deliveryCompanyType(getDeliveryCompanyType(order))
                 .deliveryInvoice(order.getDeliveryInvoice().getFullyString())
+                .traceUrl(order.getDeliveryTraceUrl())
                 .deliveryMaskedPhoneNumber(STAR_STR + getMaskedPhoneNumber(order.getDeliveryDest().getPhoneNumber()))
                 .build();
+    }
+
+    private static DeliveryCompanyType getDeliveryCompanyType(Order order) {
+        return order.getDeliveryInvoice().getDeliveryCompanyType().orElse(DeliveryCompanyType.NONE);
     }
 
     private static String getMaskedPhoneNumber(String phoneNumber) {

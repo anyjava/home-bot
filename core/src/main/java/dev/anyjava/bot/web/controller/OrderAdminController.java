@@ -61,7 +61,7 @@ public class OrderAdminController {
                 .deliveryDest(order.getDeliveryDest())
                 .memo(order.getMemo2())
                 .items(order.getItems())
-                .deliveryInvoiceSmsDTO(DeliveryInvoiceSmsDTO.from(order.getName(), order.getPhoneNumber(), order.getDeliveryInvoice(), order.getDeliveryDest(), order.getItems()))
+                .deliveryInvoiceSmsDTO(DeliveryInvoiceSmsDTO.from(order))
                 .build();
     }
 

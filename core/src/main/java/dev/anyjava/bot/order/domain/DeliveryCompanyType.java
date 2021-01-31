@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 @Getter
 public enum DeliveryCompanyType {
 
-    LOTTE("롯데", true),
-    LOGEN("로젠", true),
-    POST_OFFICE("우체국", false),
-    NONE("그외", false);
+    LOTTE("롯데", true, ""),
+    LOGEN("로젠", true, "https://www.ilogen.com/web/personal/trace/"),
+    POST_OFFICE("우체국", false, "https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1="),
+    NONE("그외", false, "");
 
     public final static Map<String, DeliveryCompanyType> MAP_BY_KOREAN_NAME;
 
@@ -25,4 +25,5 @@ public enum DeliveryCompanyType {
 
     private final String koreanName;
     private final boolean ableTracking;
+    private final String url;
 }
