@@ -5,10 +5,7 @@ import dev.anyjava.bot.order.domain.Order;
 import dev.anyjava.bot.order.repository.OrderRepository;
 import dev.anyjava.bot.order.service.DeliveryCheckService;
 import dev.anyjava.bot.order.service.OrderQueryService;
-import dev.anyjava.bot.web.dto.DeliveryInvoiceDTO;
-import dev.anyjava.bot.web.dto.DeliveryInvoiceSmsDTO;
-import dev.anyjava.bot.web.dto.OrderReservationDTO;
-import dev.anyjava.bot.web.dto.SalesSummaryDTO;
+import dev.anyjava.bot.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -69,9 +66,11 @@ public class OrderAdminController {
     }
 
     @GetMapping("/sales/summary")
-    public Map<DepositType, SalesSummaryDTO> getSalesSummary() {
-        return orderRepository.findAll().stream()
+    public SalesSummaryResponse getSalesSummary() {
+        final Map<DepositType, SalesSummaryDTO> map = orderRepository.findAll().stream()
                 .map(order -> Pair.of(order.getDepositType().get(), SalesSummaryDTO.from(order)))
-                .collect(Collectors.groupingBy(Pair::getFirst, Collectors.mapping(Pair::getSecond, Collectors.reducing(SalesSummaryDTO.zero(), SalesSummaryDTO::add))));
+                .collect(Collectors.groupingBy(Pair::getFirst, Collectors.mapping(Pair::getSecond, Collectors.reducing(
+                        SalesSummaryDTO.zero(), SalesSummaryDTO::add))));
+        return new SalesSummaryResponse(map);
     }
 }
